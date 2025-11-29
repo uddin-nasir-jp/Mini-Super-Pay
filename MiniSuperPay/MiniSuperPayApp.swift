@@ -11,7 +11,7 @@ import SwiftUI
 struct MiniSuperPayApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AppNavigatorView()
         }
     }
 }
