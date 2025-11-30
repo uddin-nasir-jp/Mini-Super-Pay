@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ProductDetailView: View {
-    let product: Product
-    
+    // MARK: - PROPERTIES
     @Environment(AppNavigator.self) private var appNavigator
     @Environment(CartViewModel.self) private var cartViewModel
+    let product: Product
     @State private var showSuccessMessage = false
     
     var body: some View {

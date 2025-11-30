@@ -15,7 +15,7 @@ struct ProductListView: View {
     @State private var productListViewModel = ProductListViewModel()
     
     var body: some View {
-        Group {
+        VStack {
             switch productListViewModel.productLoadingState {
             case .idle:
                 EmptyStateView(
