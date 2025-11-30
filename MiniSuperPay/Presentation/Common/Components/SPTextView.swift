@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomTextView: View {
+struct SPTextView: View {
     var text: String
     var size: CGFloat = DesignConstants.smFont
     var weight: Font.Weight = .regular

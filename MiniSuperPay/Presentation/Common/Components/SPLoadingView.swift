@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LoadingView: View {
+struct SPLoadingView: View {
     var message: String = "Loading..."
     
     var body: some View {
@@ -15,7 +15,7 @@ struct LoadingView: View {
             ProgressView()
                 .scaleEffect(1.5)
             
-            CustomTextView(
+            SPTextView(
                 text: message,
                 size: DesignConstants.smFont,
                 textColor: .textColor,
@@ -27,5 +27,5 @@ struct LoadingView: View {
 }
 
 #Preview {
-    LoadingView()
+    SPLoadingView()
 }

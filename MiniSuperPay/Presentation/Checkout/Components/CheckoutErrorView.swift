@@ -19,7 +19,7 @@ struct CheckoutErrorView: View {
                 .font(.system(size: 80))
                 .foregroundStyle(.red)
             
-            CustomTextView(
+            SPTextView(
                 text: "Payment Failed",
                 size: DesignConstants.lgFont,
                 weight: .bold,
@@ -28,7 +28,7 @@ struct CheckoutErrorView: View {
             )
             
             if let message = errorMessage {
-                CustomTextView(
+                SPTextView(
                     text: message,
                     size: DesignConstants.baseFont,
                     textColor: .textColorLight,
@@ -40,7 +40,7 @@ struct CheckoutErrorView: View {
                 Button {
                     onRetry()
                 } label: {
-                    CustomTextView(
+                    SPTextView(
                         text: "Try Again",
                         size: DesignConstants.baseFont,
                         weight: .semibold,
@@ -56,7 +56,7 @@ struct CheckoutErrorView: View {
                 Button {
                     onBackToCart()
                 } label: {
-                    CustomTextView(
+                    SPTextView(
                         text: "Back to Cart",
                         size: DesignConstants.smFont,
                         textColor: .themePrimary

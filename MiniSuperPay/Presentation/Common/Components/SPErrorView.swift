@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ErrorView: View {
+struct SPErrorView: View {
     let error: Error
     let retryAction: () async -> Void
     
@@ -17,7 +17,7 @@ struct ErrorView: View {
                 .font(.system(size: DesignConstants.extraLargeIcon))
                 .foregroundStyle(.red)
             
-            CustomTextView(
+            SPTextView(
                 text: "Oops!",
                 size: DesignConstants.xlFont,
                 weight: .bold,
@@ -25,7 +25,7 @@ struct ErrorView: View {
                 alignment: .center
             )
             
-            CustomTextView(
+            SPTextView(
                 text: error.localizedDescription,
                 size: DesignConstants.baseFont,
                 textColor: .textColorLight,
@@ -38,7 +38,7 @@ struct ErrorView: View {
                     await retryAction()
                 }
             } label: {
-                CustomTextView(
+                SPTextView(
                     text: "Try Again",
                     size: DesignConstants.baseFont,
                     weight: .semibold,
@@ -58,7 +58,7 @@ struct ErrorView: View {
 }
 
 #Preview {
-    ErrorView(error: NetworkError.serverError) {
+    SPErrorView(error: NetworkError.serverError) {
         print("Retry tapped")
     }
 }

@@ -7,142 +7,58 @@
 
 import SwiftUI
 
+// MARK: - Product details view
 struct ProductDetailView: View {
     // MARK: - PROPERTIES
     @Environment(AppNavigator.self) private var appNavigator
     @Environment(CartViewModel.self) private var cartViewModel
+    @Environment(ToastManager.self) private var toastManager
     let product: Product
-    @State private var showSuccessMessage = false
     
     var body: some View {
         ScrollView {
             VStack(spacing: DesignConstants.largeSpacing) {
-                Image(systemName: "photo")
-                    .font(.system(size: 120))
-                    .foregroundStyle(Color.textColor)
-                    .frame(height: 200)
-                    .frame(maxWidth: .infinity)
-                    .background(Color(.systemGray6))
-                    .cornerRadius(DesignConstants.mediumRadius)
+                ProductImageView(imageName: "photo")
+                    .padding(.horizontal)
                 
-                VStack(alignment: .leading, spacing: DesignConstants.mediumSpacing) {
-                    CustomTextView(
-                        text: product.category,
-                        size: DesignConstants.xsFont,
-                        weight: .medium,
-                        textColor: .textColor
-                    )
-                    .padding(.horizontal, DesignConstants.smallSpacing)
-                    .padding(.vertical, DesignConstants.extraSmallSpacing)
-                    .background(Color.textColor.opacity(0.1))
-                    .cornerRadius(DesignConstants.smallRadius)
-                    
-                    CustomTextView(
-                        text: product.name,
-                        size: DesignConstants.doubleXlFont,
-                        weight: .bold,
-                        textColor: .textColor
-                    )
-                    
-                    CustomTextView(
-                        text: product.description,
-                        size: DesignConstants.baseFont,
-                        textColor: .textColor
-                    )
-                    
-                    Divider()
-                    
+                VStack(alignment: .leading, spacing: DesignConstants.largeSpacing) {
                     HStack {
-                        CustomTextView(
-                            text: "Price:",
-                            size: DesignConstants.baseFont,
-                            weight: .semibold,
-                            textColor: .textColor
-                        )
-                        
+                        ProductCategoryBadge(category: product.category)
                         Spacer()
-                        
-                        CustomTextView(
-                            text: product.formattedPrice,
-                            size: DesignConstants.xlFont,
-                            weight: .bold,
-                            textColor: .successColor
-                        )
                     }
+                    
+                    ProductInfoSection(
+                        name: product.name,
+                        description: product.description
+                    )
+                    
+                    ProductPriceCard(price: product.formattedPrice)
+                    
+                    Spacer(minLength: 100)
                 }
                 .padding(.horizontal)
-                
-                Spacer(minLength: 80)
             }
             .padding(.vertical, DesignConstants.mediumSpacing)
         }
-        .navigationTitle(product.name)
-        .navigationBarTitleDisplayMode(.inline)
         .safeAreaInset(edge: .bottom) {
-            addToCartButton
-                .padding()
-                .background(.ultraThinMaterial)
-        }
-        .overlay {
-            if showSuccessMessage {
-                successMessageOverlay
-            }
-        }
-    }
-    
-    private var addToCartButton: some View {
-        Button {
-            cartViewModel.addToCart(product)
-            withAnimation {
-                showSuccessMessage = true
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                withAnimation {
-                    showSuccessMessage = false
-                }
-                appNavigator.navigateToBack()
-            }
-        } label: {
-            HStack {
-                Image(systemName: "cart.badge.plus")
-                    .font(.system(size: DesignConstants.baseFont))
-                CustomTextView(
-                    text: "Add to Cart",
-                    size: DesignConstants.baseFont,
-                    weight: .bold,
-                    textColor: .white
-                )
-            }
-            .frame(maxWidth: .infinity)
-            .padding()
-            .background(Color.themePrimary)
-            .cornerRadius(DesignConstants.mediumRadius)
-        }
-    }
-    
-    private var successMessageOverlay: some View {
-        VStack {
-            HStack(spacing: DesignConstants.smallSpacing) {
-                Image(systemName: "checkmark.circle.fill")
-                    .font(.system(size: DesignConstants.smFont))
-                    .foregroundStyle(Color.successColor)
-                CustomTextView(
-                    text: "Added to cart!",
-                    size: DesignConstants.smFont,
-                    weight: .bold,
-                    textColor: .textColor
-                )
-            }
+            AddToCartButton(
+                isInCart: cartViewModel.cartItems.contains { $0.product.id == product.id },
+                onAddToCart: handleAddToCart
+            )
             .padding()
             .background(.ultraThinMaterial)
-            .cornerRadius(DesignConstants.largeRadius)
-            .shadow(radius: 10)
-            
-            Spacer()
         }
-        .padding(.top, 100)
-        .transition(.move(edge: .top).combined(with: .opacity))
+        .navigationTitle(product.name)
+        .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    private func handleAddToCart() {
+        cartViewModel.addToCart(product)
+        toastManager.show("Added to cart!", type: .success)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            appNavigator.navigateToBack()
+        }
     }
 }
 
@@ -150,5 +66,7 @@ struct ProductDetailView: View {
     NavigationStack {
         ProductDetailView(product: .mockProduct)
             .environment(AppNavigator())
+            .environment(CartViewModel())
+            .environment(ToastManager())
     }
 }

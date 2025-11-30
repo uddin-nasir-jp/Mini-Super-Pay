@@ -12,13 +12,14 @@ struct ProductListView: View {
     // MARK: - PROPERTIES
     @Environment(AppNavigator.self) private var appNavigator
     @Environment(CartViewModel.self) private var cartViewModel
+    @Environment(ToastManager.self) private var toastManager
     @State private var productListViewModel = ProductListViewModel()
     
     var body: some View {
         VStack {
             switch productListViewModel.productLoadingState {
             case .idle:
-                EmptyStateView(
+                SPEmptyStateView(
                     icon: "cart",
                     title: "Welcome to SuperPay",
                     message: "Tap below to load products",
@@ -31,13 +32,13 @@ struct ProductListView: View {
                 )
                 
             case .loading:
-                LoadingView(message: "Loading products...")
+                SPLoadingView(message: "Loading products...")
                 
             case .success:
                 productsList
                 
             case .failure(let error):
-                ErrorView(error: error) {
+                SPErrorView(error: error) {
                     await productListViewModel.retryLoading()
                 }
             }
@@ -64,7 +65,7 @@ struct ProductListView: View {
                     product: product,
                     isInCart: cartViewModel.cartItems.contains { $0.product.id == product.id },
                     onAddToCart: {
-                        cartViewModel.addToCart(product)
+                        handleAddToCart(product)
                     }
                 )
                 .contentShape(Rectangle())
@@ -91,7 +92,7 @@ struct ProductListView: View {
                     .padding(.top, 4)
                 
                 if cartViewModel.cartCount > 0 {
-                    CustomTextView(
+                    SPTextView(
                         text: "\(cartViewModel.cartCount)",
                         size: DesignConstants.doubleXSFont,
                         weight: .bold,
@@ -104,6 +105,12 @@ struct ProductListView: View {
                 }
             }
         }
+    }
+    
+    // MARK: - Actions
+    private func handleAddToCart(_ product: Product) {
+        cartViewModel.addToCart(product)
+        toastManager.show("Added to cart!", type: .success)
     }
 }
 

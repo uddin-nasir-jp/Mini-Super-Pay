@@ -12,11 +12,12 @@ struct CartView: View {
     // MARK: - PROPERTIES
     @Environment(AppNavigator.self) private var appNavigator
     @Environment(CartViewModel.self) private var cartViewModel
+    @Environment(ToastManager.self) private var toastManager
     
     var body: some View {
-        Group {
+        VStack {
             if cartViewModel.isEmpty {
-                EmptyStateView(
+                SPEmptyStateView(
                     icon: "cart",
                     title: "Your Cart is Empty",
                     message: "Add some delicious items to your cart",
@@ -47,9 +48,7 @@ struct CartView: View {
                             cartViewModel.decreaseQuantity(for: item.id)
                         },
                         onRemove: {
-                            withAnimation {
-                                cartViewModel.removeItem(item.id)
-                            }
+                            handleRemoveItem(item.id)
                         }
                     )
                 }
@@ -75,7 +74,7 @@ struct CartView: View {
             appNavigator.navigateTo(.checkout)
         } label: {
             HStack {
-                CustomTextView(
+                SPTextView(
                     text: "Proceed to Checkout",
                     size: DesignConstants.baseFont,
                     weight: .bold,
@@ -90,6 +89,19 @@ struct CartView: View {
             .background(Color.blue)
             .cornerRadius(DesignConstants.mediumRadius)
         }
+    }
+    
+    // MARK: - Actions
+    private func handleRemoveItem(_ itemId: String) {
+        // Add haptic feedback
+        let impact = UINotificationFeedbackGenerator()
+        impact.notificationOccurred(.warning)
+        
+        withAnimation {
+            cartViewModel.removeItem(itemId)
+        }
+        
+        toastManager.show("Item removed from cart", type: .info)
     }
 }
 

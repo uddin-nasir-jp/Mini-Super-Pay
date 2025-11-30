@@ -23,7 +23,7 @@ struct WalletBalanceView: View {
                 Image(systemName: "creditcard.fill")
                     .font(.system(size: DesignConstants.baseFont))
                     .foregroundStyle(.blue)
-                CustomTextView(
+                SPTextView(
                     text: "Wallet Balance",
                     size: DesignConstants.baseFont,
                     weight: .semibold,
@@ -32,7 +32,7 @@ struct WalletBalanceView: View {
             }
             
             HStack {
-                CustomTextView(
+                SPTextView(
                     text: "Available:",
                     size: DesignConstants.baseFont,
                     textColor: .textColorLight
@@ -40,7 +40,7 @@ struct WalletBalanceView: View {
                 
                 Spacer()
                 
-                CustomTextView(
+                SPTextView(
                     text: wallet.formattedBalance,
                     size: DesignConstants.lgFont,
                     weight: .bold,
@@ -53,7 +53,7 @@ struct WalletBalanceView: View {
                     Image(systemName: "exclamationmark.circle.fill")
                         .font(.system(size: DesignConstants.xsFont))
                         .foregroundStyle(.red)
-                    CustomTextView(
+                    SPTextView(
                         text: "Insufficient funds. Please add money to your wallet.",
                         size: DesignConstants.xsFont,
                         textColor: .errorColor

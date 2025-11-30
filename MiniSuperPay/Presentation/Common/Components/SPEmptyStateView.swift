@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EmptyStateView: View {
+struct SPEmptyStateView: View {
     let icon: String
     let title: String
     let message: String
@@ -34,7 +34,7 @@ struct EmptyStateView: View {
                 .font(.system(size: DesignConstants.extraLargeIcon + 20))
                 .foregroundStyle(.secondary)
             
-            CustomTextView(
+            SPTextView(
                 text: title,
                 size: DesignConstants.xlFont,
                 weight: .bold,
@@ -42,7 +42,7 @@ struct EmptyStateView: View {
                 alignment: .center
             )
             
-            CustomTextView(
+            SPTextView(
                 text: message,
                 size: DesignConstants.baseFont,
                 textColor: .textColorLight,
@@ -52,7 +52,7 @@ struct EmptyStateView: View {
             
             if let actionTitle, let action {
                 Button(action: action) {
-                    CustomTextView(
+                    SPTextView(
                         text: actionTitle,
                         size: DesignConstants.baseFont,
                         weight: .semibold,
@@ -73,7 +73,7 @@ struct EmptyStateView: View {
 }
 
 #Preview {
-    EmptyStateView(
+    SPEmptyStateView(
         icon: "cart",
         title: "Your Cart is Empty",
         message: "Add some items to get started",

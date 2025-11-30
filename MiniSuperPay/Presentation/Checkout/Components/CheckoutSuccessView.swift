@@ -20,7 +20,7 @@ struct CheckoutSuccessView: View {
                 .font(.system(size: 80))
                 .foregroundStyle(.green)
             
-            CustomTextView(
+            SPTextView(
                 text: "Payment Successful!",
                 size: DesignConstants.lgFont,
                 weight: .bold,
@@ -29,7 +29,7 @@ struct CheckoutSuccessView: View {
             )
             
             if let message = successMessage {
-                CustomTextView(
+                SPTextView(
                     text: message,
                     size: DesignConstants.baseFont,
                     textColor: .textColorLight,
@@ -39,13 +39,13 @@ struct CheckoutSuccessView: View {
             
             VStack(alignment: .leading, spacing: DesignConstants.smallSpacing) {
                 HStack {
-                    CustomTextView(
+                    SPTextView(
                         text: "Amount Paid:",
                         size: DesignConstants.baseFont,
                         textColor: .textColor
                     )
                     Spacer()
-                    CustomTextView(
+                    SPTextView(
                         text: amountPaid,
                         size: DesignConstants.baseFont,
                         weight: .bold,
@@ -54,13 +54,13 @@ struct CheckoutSuccessView: View {
                 }
                 
                 HStack {
-                    CustomTextView(
+                    SPTextView(
                         text: "New Wallet Balance:",
                         size: DesignConstants.baseFont,
                         textColor: .textColor
                     )
                     Spacer()
-                    CustomTextView(
+                    SPTextView(
                         text: newBalance,
                         size: DesignConstants.baseFont,
                         weight: .bold,
@@ -75,7 +75,7 @@ struct CheckoutSuccessView: View {
             Button {
                 onContinueShopping()
             } label: {
-                CustomTextView(
+                SPTextView(
                     text: "Continue Shopping",
                     size: DesignConstants.baseFont,
                     weight: .semibold,

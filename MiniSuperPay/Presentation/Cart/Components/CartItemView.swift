@@ -23,7 +23,7 @@ struct CartItemView: View {
                 .cornerRadius(DesignConstants.smallRadius)
             
             VStack(alignment: .leading, spacing: DesignConstants.extraSmallSpacing) {
-                CustomTextView(
+                SPTextView(
                     text: cartItem.product.name,
                     size: DesignConstants.baseFont,
                     weight: .semibold,
@@ -31,13 +31,13 @@ struct CartItemView: View {
                 )
                 .lineLimit(1)
                 
-                CustomTextView(
+                SPTextView(
                     text: "Qty: \(cartItem.quantity)",
                     size: DesignConstants.smFont,
                     textColor: .textColor
                 )
                 
-                CustomTextView(
+                SPTextView(
                     text: cartItem.formattedTotalPrice,
                     size: DesignConstants.smFont,
                     weight: .bold,
@@ -58,10 +58,10 @@ struct CartItemView: View {
                 }
                 .buttonStyle(.plain)
                 .disabled(cartItem.quantity <= AppConstants.minimumCartQuantity)
-                .opacity(cartItem.quantity <= AppConstants.minimumCartQuantity ? 0.3 : 1.0)
+                .opacity(cartItem.quantity <= AppConstants.minimumCartQuantity ? 0.6 : 1.0)
                 //TODO: Use enable/disable opacity constants
                 
-                CustomTextView(
+                SPTextView(
                     text: "\(cartItem.quantity)",
                     size: DesignConstants.baseFont,
                     weight: .semibold,

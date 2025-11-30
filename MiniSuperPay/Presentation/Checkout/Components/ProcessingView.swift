@@ -14,7 +14,7 @@ struct ProcessingView: View {
             ProgressView()
                 .scaleEffect(2.0)
             
-            CustomTextView(
+            SPTextView(
                 text: "Processing Payment...",
                 size: DesignConstants.lgFont,
                 weight: .bold,
@@ -22,7 +22,7 @@ struct ProcessingView: View {
                 alignment: .center
             )
             
-            CustomTextView(
+            SPTextView(
                 text: "Please wait while we process your order",
                 size: DesignConstants.smFont,
                 textColor: .textColorLight,

@@ -11,22 +11,33 @@ struct AppNavigatorView: View {
     // MARK: - PROPERTIES
     @State private var appNavigator = AppNavigator()
     @State private var cartViewModel = CartViewModel()
+    @State private var toastManager = ToastManager()
     
     var body: some View {
-        NavigationStack(path: $appNavigator.navPath) {
-            destination(for: .productList)
-                .navigationDestination(for: AppRoute.self) { route in
-                    destination(for: route)
-                }
-                .sheet(item: $appNavigator.presentedSheet) { route in
-                    destination(for: route)
-                }
-                .fullScreenCover(item: $appNavigator.presentedFullScreenCover) { route in
-                    destination(for: route)
-                }
+        ZStack {
+            NavigationStack(path: $appNavigator.navPath) {
+                destination(for: .productList)
+                    .navigationDestination(for: AppRoute.self) { route in
+                        destination(for: route)
+                    }
+                    .sheet(item: $appNavigator.presentedSheet) { route in
+                        destination(for: route)
+                    }
+                    .fullScreenCover(item: $appNavigator.presentedFullScreenCover) { route in
+                        destination(for: route)
+                    }
+            }
+            .environment(appNavigator)
+            .environment(cartViewModel)
+            .environment(toastManager)
+            
+            if toastManager.showToast {
+                SPToastView(
+                    message: toastManager.toastMessage,
+                    type: toastManager.toastType
+                )
+            }
         }
-        .environment(appNavigator)
-        .environment(cartViewModel)
     }
     
     // MARK: - Navigation Destinations

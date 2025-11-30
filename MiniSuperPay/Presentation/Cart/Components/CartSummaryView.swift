@@ -16,13 +16,13 @@ struct CartSummaryView: View {
     var body: some View {
         VStack(spacing: DesignConstants.smallSpacing) {
             HStack {
-                CustomTextView(
+                SPTextView(
                     text: "Items Qty",
                     size: DesignConstants.baseFont,
                     textColor: .textColorLight
                 )
                 Spacer()
-                CustomTextView(
+                SPTextView(
                     text: "\(itemCount)",
                     size: DesignConstants.baseFont,
                     weight: .bold,
@@ -33,14 +33,14 @@ struct CartSummaryView: View {
             Divider()
             
             HStack {
-                CustomTextView(
+                SPTextView(
                     text: "Total Price",
                     size: DesignConstants.baseFont,
                     weight: .semibold,
                     textColor: .textColor
                 )
                 Spacer()
-                CustomTextView(
+                SPTextView(
                     text: totalPrice.asFormattedCurrency,
                     size: DesignConstants.xlFont,
                     weight: .bold,

@@ -22,7 +22,7 @@ struct CheckoutActionsView: View {
                 HStack {
                     Image(systemName: "checkmark.circle.fill")
                         .font(.system(size: DesignConstants.baseFont))
-                    CustomTextView(
+                    SPTextView(
                         text: "Complete Purchase",
                         size: DesignConstants.baseFont,
                         weight: .bold,
@@ -40,7 +40,7 @@ struct CheckoutActionsView: View {
             Button {
                 onCancel()
             } label: {
-                CustomTextView(
+                SPTextView(
                     text: "Cancel",
                     size: DesignConstants.smFont,
                     textColor: .errorColor

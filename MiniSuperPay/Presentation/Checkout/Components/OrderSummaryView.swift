@@ -14,7 +14,7 @@ struct OrderSummaryView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: DesignConstants.mediumSpacing) {
-            CustomTextView(
+            SPTextView(
                 text: "Order Summary",
                 size: DesignConstants.baseFont,
                 weight: .semibold,
@@ -23,13 +23,13 @@ struct OrderSummaryView: View {
             
             ForEach(items) { item in
                 HStack {
-                    CustomTextView(
+                    SPTextView(
                         text: "\(item.quantity)x",
                         size: DesignConstants.smFont,
                         textColor: .textColorLight
                     )
                     
-                    CustomTextView(
+                    SPTextView(
                         text: item.product.name,
                         size: DesignConstants.smFont,
                         textColor: .textColor
@@ -37,7 +37,7 @@ struct OrderSummaryView: View {
                     
                     Spacer()
                     
-                    CustomTextView(
+                    SPTextView(
                         text: item.formattedTotalPrice,
                         size: DesignConstants.smFont,
                         weight: .bold,
@@ -49,7 +49,7 @@ struct OrderSummaryView: View {
             Divider()
             
             HStack {
-                CustomTextView(
+                SPTextView(
                     text: "Total",
                     size: DesignConstants.baseFont,
                     weight: .semibold,
@@ -58,7 +58,7 @@ struct OrderSummaryView: View {
                 
                 Spacer()
                 
-                CustomTextView(
+                SPTextView(
                     text: total.asFormattedCurrency,
                     size: DesignConstants.lgFont,
                     weight: .bold,

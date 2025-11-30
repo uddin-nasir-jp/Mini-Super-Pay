@@ -22,7 +22,7 @@ struct ProductListItemView: View {
                 .cornerRadius(DesignConstants.smallRadius)
             
             VStack(alignment: .leading, spacing: DesignConstants.smallSpacing) {
-                CustomTextView(
+                SPTextView(
                     text: product.name,
                     size: DesignConstants.baseFont,
                     weight: .semibold,
@@ -30,14 +30,14 @@ struct ProductListItemView: View {
                 )
                 .lineLimit(1)
                 
-                CustomTextView(
+                SPTextView(
                     text: product.description,
                     size: DesignConstants.xsFont,
                     textColor: .textColorLight
                 )
                 .lineLimit(2)
                 
-                CustomTextView(
+                SPTextView(
                     text: product.category,
                     size: DesignConstants.doubleXSFont,
                     weight: .medium,
@@ -52,7 +52,7 @@ struct ProductListItemView: View {
             Spacer()
             
             VStack(alignment: .trailing, spacing: DesignConstants.smallSpacing) {
-                CustomTextView(
+                SPTextView(
                     text: product.formattedPrice,
                     size: DesignConstants.baseFont,
                     weight: .bold,
@@ -65,7 +65,7 @@ struct ProductListItemView: View {
                     HStack(spacing: 4) {
                         Image(systemName: isInCart ? "checkmark.circle.fill" : "cart.badge.plus")
                             .font(.system(size: DesignConstants.xsFont))
-                        CustomTextView(
+                        SPTextView(
                             text: isInCart ? "Added" : "Add",
                             size: DesignConstants.xsFont,
                             weight: .bold,
