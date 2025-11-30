@@ -75,8 +75,8 @@ final class CartRepository: CartRepositoryProtocol {
         try cartStorage.clearCart()
     }
     
-    func getCartTotal() -> Double {
-        return cartItems.reduce(0) { $0 + $1.totalPrice }
+    func getTotalCartPrice() -> Double {
+        return cartItems.reduce(0) { $0 + $1.totalPrice } 
     }
 }
 
@@ -136,7 +136,7 @@ final class MockCartRepository: CartRepositoryProtocol {
         mockCartItems = []
     }
     
-    func getCartTotal() -> Double {
-        return mockCartItems.reduce(0) { $0 + $1.totalPrice }
+    func getTotalCartPrice() -> Double {
+        mockCartItems.reduce(0) { $0 + $1.totalPrice }
     }
 }

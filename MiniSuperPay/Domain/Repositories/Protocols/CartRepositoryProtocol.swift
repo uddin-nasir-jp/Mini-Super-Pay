@@ -24,5 +24,5 @@ protocol CartRepositoryProtocol {
     func clearCart() throws
     
     /// Calculates the total price of all items in the cart
-    func getCartTotal() -> Double
+    func getTotalCartPrice() -> Double
 }

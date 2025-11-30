@@ -1,33 +1,18 @@
 //
-//  LoadingState.swift
+//  AsyncLoadingState.swift
 //  MiniSuperPay
 //
-//  Created by Nasir Uddin on 28/11/25.
+//  Created by Nasir Uddin on 30/11/25.
 //
 
 import Foundation
 
-// MARK: - Loading States
-enum LoadingState<T: Equatable>: Equatable {
+/// Represents the loading state of an asynchronous operation
+enum AsyncLoadingState<T> {
     case idle
     case loading
     case success(T)
     case failure(Error)
-    
-    static func == (lhs: LoadingState<T>, rhs: LoadingState<T>) -> Bool {
-        switch (lhs, rhs) {
-        case (.idle, .idle):
-            return true
-        case (.loading, .loading):
-            return true
-        case (.success(let lhsValue), .success(let rhsValue)):
-            return lhsValue == rhsValue
-        case (.failure(let lhsError), .failure(let rhsError)):
-            return lhsError.localizedDescription == rhsError.localizedDescription
-        default:
-            return false
-        }
-    }
     
     // MARK: - Computed Properties
     
@@ -55,10 +40,10 @@ enum LoadingState<T: Equatable>: Equatable {
         return false
     }
     
-    /// Get success value if available
-    var value: T? {
-        if case .success(let value) = self {
-            return value
+    /// Returns the success state data if available
+    var data: T? {
+        if case .success(let data) = self {
+            return data
         }
         return nil
     }
