@@ -66,7 +66,7 @@ struct ProductListItemView: View {
                         Image(systemName: isInCart ? "checkmark.circle.fill" : "cart.badge.plus")
                             .font(.system(size: DesignConstants.xsFont))
                         SPTextView(
-                            text: isInCart ? "Added" : "Add",
+                            text: isInCart ? .productAdded : .productAdd,
                             size: DesignConstants.xsFont,
                             weight: .bold,
                             textColor: .white

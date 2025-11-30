@@ -50,7 +50,7 @@ struct CheckoutView: View {
                 )
             }
         }
-        .navigationTitle("Checkout")
+        .navigationTitle(String.checkoutTitle)
         .navigationBarTitleDisplayMode(.large)
         .task {
             checkoutViewModel.loadWallet()

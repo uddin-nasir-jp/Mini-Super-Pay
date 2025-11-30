@@ -21,7 +21,7 @@ struct CheckoutSuccessView: View {
                 .foregroundStyle(.green)
             
             SPTextView(
-                text: "Payment Successful!",
+                text: .checkoutSuccess,
                 size: DesignConstants.lgFont,
                 weight: .bold,
                 textColor: .textColor,
@@ -40,7 +40,7 @@ struct CheckoutSuccessView: View {
             VStack(alignment: .leading, spacing: DesignConstants.smallSpacing) {
                 HStack {
                     SPTextView(
-                        text: "Amount Paid:",
+                        text: .walletAmountPaid,
                         size: DesignConstants.baseFont,
                         textColor: .textColor
                     )
@@ -55,7 +55,7 @@ struct CheckoutSuccessView: View {
                 
                 HStack {
                     SPTextView(
-                        text: "New Wallet Balance:",
+                        text: .walletNewBalance,
                         size: DesignConstants.baseFont,
                         textColor: .textColor
                     )
@@ -76,7 +76,7 @@ struct CheckoutSuccessView: View {
                 onContinueShopping()
             } label: {
                 SPTextView(
-                    text: "Continue Shopping",
+                    text: .checkoutContinueShopping,
                     size: DesignConstants.baseFont,
                     weight: .semibold,
                     textColor: .white,

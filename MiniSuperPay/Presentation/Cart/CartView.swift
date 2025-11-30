@@ -19,9 +19,9 @@ struct CartView: View {
             if cartViewModel.isEmpty {
                 SPEmptyStateView(
                     icon: "cart",
-                    title: "Your Cart is Empty",
-                    message: "Add some delicious items to your cart",
-                    actionTitle: "Continue Shopping",
+                    title: .cartEmptyTitle,
+                    message: .cartEmptyMessage,
+                    actionTitle: .cartEmptyAction,
                     action: {
                         appNavigator.navigateToBack()
                     }
@@ -31,7 +31,7 @@ struct CartView: View {
                 cartContentView
             }
         }
-        .navigationTitle("My Cart")
+        .navigationTitle(String.cartMyCart)
         .navigationBarTitleDisplayMode(.inline)
     }
     
@@ -75,7 +75,7 @@ struct CartView: View {
         } label: {
             HStack {
                 SPTextView(
-                    text: "Proceed to Checkout",
+                    text: .cartCheckout,
                     size: DesignConstants.baseFont,
                     weight: .bold,
                     textColor: .white
@@ -101,7 +101,7 @@ struct CartView: View {
             cartViewModel.removeItem(itemId)
         }
         
-        toastManager.show("Item removed from cart", type: .info)
+        toastManager.show(.toastRemovedFromCart, type: .info)
     }
 }
 

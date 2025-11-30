@@ -17,7 +17,7 @@ struct CartSummaryView: View {
         VStack(spacing: DesignConstants.smallSpacing) {
             HStack {
                 SPTextView(
-                    text: "Items Qty",
+                    text: .cartItemsQty,
                     size: DesignConstants.baseFont,
                     textColor: .textColorLight
                 )
@@ -34,7 +34,7 @@ struct CartSummaryView: View {
             
             HStack {
                 SPTextView(
-                    text: "Total Price",
+                    text: .cartTotalPrice,
                     size: DesignConstants.baseFont,
                     weight: .semibold,
                     textColor: .textColor

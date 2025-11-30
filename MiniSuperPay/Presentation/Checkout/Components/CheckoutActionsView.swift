@@ -23,7 +23,7 @@ struct CheckoutActionsView: View {
                     Image(systemName: "checkmark.circle.fill")
                         .font(.system(size: DesignConstants.baseFont))
                     SPTextView(
-                        text: "Complete Purchase",
+                        text: .checkoutCompletePurchase,
                         size: DesignConstants.baseFont,
                         weight: .bold,
                         textColor: .white
@@ -41,7 +41,7 @@ struct CheckoutActionsView: View {
                 onCancel()
             } label: {
                 SPTextView(
-                    text: "Cancel",
+                    text: .cancel,
                     size: DesignConstants.smFont,
                     textColor: .errorColor
                 )

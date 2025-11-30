@@ -21,9 +21,9 @@ struct ProductListView: View {
             case .idle:
                 SPEmptyStateView(
                     icon: "cart",
-                    title: "Welcome to SuperPay",
-                    message: "Tap below to load products",
-                    actionTitle: "Load Products",
+                    title: .productListWelcomeTitle,
+                    message: .productListWelcomeMessage,
+                    actionTitle: .productListLoadAction,
                     action: {
                         Task {
                             await productListViewModel.loadProducts()
@@ -32,7 +32,7 @@ struct ProductListView: View {
                 )
                 
             case .loading:
-                SPLoadingView(message: "Loading products...")
+                SPLoadingView(message: .productListLoadingMessage)
                 
             case .success:
                 productsList
@@ -43,7 +43,7 @@ struct ProductListView: View {
                 }
             }
         }
-        .navigationTitle("Products")
+        .navigationTitle(String.navProducts)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -110,7 +110,7 @@ struct ProductListView: View {
     // MARK: - Actions
     private func handleAddToCart(_ product: Product) {
         cartViewModel.addToCart(product)
-        toastManager.show("Added to cart!", type: .success)
+        toastManager.show(.toastAddedToCart, type: .success)
     }
 }
 

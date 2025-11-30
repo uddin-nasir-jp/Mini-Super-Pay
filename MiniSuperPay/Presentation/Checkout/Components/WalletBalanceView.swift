@@ -24,7 +24,7 @@ struct WalletBalanceView: View {
                     .font(.system(size: DesignConstants.baseFont))
                     .foregroundStyle(.blue)
                 SPTextView(
-                    text: "Wallet Balance",
+                    text: .walletBalance,
                     size: DesignConstants.baseFont,
                     weight: .semibold,
                     textColor: .textColor
@@ -33,7 +33,7 @@ struct WalletBalanceView: View {
             
             HStack {
                 SPTextView(
-                    text: "Available:",
+                    text: .walletAvailable,
                     size: DesignConstants.baseFont,
                     textColor: .textColorLight
                 )
@@ -54,7 +54,7 @@ struct WalletBalanceView: View {
                         .font(.system(size: DesignConstants.xsFont))
                         .foregroundStyle(.red)
                     SPTextView(
-                        text: "Insufficient funds. Please add money to your wallet.",
+                        text: .walletInsufficientMessage,
                         size: DesignConstants.xsFont,
                         textColor: .errorColor
                     )

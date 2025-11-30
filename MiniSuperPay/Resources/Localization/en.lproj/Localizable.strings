@@ -1,0 +1,94 @@
+/* 
+  Localizable.strings
+  MiniSuperPay
+  
+  Created by Nasir Uddin on 30/11/25.
+*/
+
+// MARK: - General
+"app.name" = "MiniSuperPay";
+"ok" = "OK";
+"cancel" = "Cancel";
+"done" = "Done";
+"retry" = "Retry";
+
+// MARK: - Navigation
+"nav.products" = "Products";
+"nav.cart" = "Cart";
+"nav.checkout" = "Checkout";
+"nav.back" = "Back";
+
+// MARK: - Product
+"product.add.to.cart" = "Add to Cart";
+"product.already.in.cart" = "Already in Cart";
+"product.added" = "Added";
+"product.add" = "Add";
+"product.price" = "Price";
+"product.description" = "Description";
+"product.category" = "Category";
+
+// MARK: - Product List
+"product.list.title" = "Products";
+"product.list.welcome.title" = "Welcome to SuperPay";
+"product.list.welcome.message" = "Tap below to load products";
+"product.list.load.action" = "Load Products";
+"product.list.loading.message" = "Loading products...";
+
+// MARK: - Cart
+"cart.title" = "Shopping Cart";
+"cart.my.cart" = "My Cart";
+"cart.empty.title" = "Your Cart is Empty";
+"cart.empty.message" = "Add some delicious items to your cart";
+"cart.empty.action" = "Continue Shopping";
+"cart.total" = "Total";
+"cart.total.price" = "Total Price";
+"cart.items.qty" = "Items Qty";
+"cart.quantity" = "Qty: %d";
+"cart.checkout" = "Proceed to Checkout";
+"cart.continue.shopping" = "Continue Shopping";
+
+// MARK: - Checkout
+"checkout.title" = "Checkout";
+"checkout.order.summary" = "Order Summary";
+"checkout.complete.purchase" = "Complete Purchase";
+"checkout.processing" = "Processing Payment...";
+"checkout.processing.message" = "Please wait while we process your order";
+"checkout.success" = "Payment Successful!";
+"checkout.failed" = "Payment Failed";
+"checkout.continue.shopping" = "Continue Shopping";
+"checkout.try.again" = "Try Again";
+"checkout.back.to.cart" = "Back to Cart";
+
+// MARK: - Wallet
+"wallet.balance" = "Wallet Balance";
+"wallet.available" = "Available:";
+"wallet.required" = "Required Amount";
+"wallet.insufficient.funds" = "Insufficient funds";
+"wallet.insufficient.message" = "Insufficient funds. Please add money to your wallet.";
+"wallet.new.balance" = "New Wallet Balance:";
+"wallet.amount.paid" = "Amount Paid:";
+
+// MARK: - Toast Messages
+"toast.added.to.cart" = "Added to cart!";
+"toast.removed.from.cart" = "Item removed from cart";
+"toast.error.generic" = "Something went wrong";
+"toast.error.load.products" = "Failed to load products";
+"toast.error.load.cart" = "Failed to load cart";
+"toast.error.checkout" = "Checkout failed";
+
+// MARK: - Empty States
+"empty.title" = "Nothing here yet";
+"empty.message" = "Check back later";
+"empty.action" = "Go Back";
+
+// MARK: - Error States
+"error.title" = "Something went wrong";
+"error.oops" = "Oops!";
+"error.try.again" = "Try Again";
+"error.go.back" = "Go Back";
+
+// MARK: - Loading
+"loading.message" = "Loading...";
+
+// MARK: - Actions
+"action.delete" = "Delete";

@@ -15,7 +15,7 @@ struct OrderSummaryView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: DesignConstants.mediumSpacing) {
             SPTextView(
-                text: "Order Summary",
+                text: .checkoutOrderSummary,
                 size: DesignConstants.baseFont,
                 weight: .semibold,
                 textColor: .textColor
@@ -50,7 +50,7 @@ struct OrderSummaryView: View {
             
             HStack {
                 SPTextView(
-                    text: "Total",
+                    text: .cartTotal,
                     size: DesignConstants.baseFont,
                     weight: .semibold,
                     textColor: .textColor

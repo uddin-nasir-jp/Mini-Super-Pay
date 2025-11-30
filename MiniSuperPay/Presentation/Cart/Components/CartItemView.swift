@@ -32,7 +32,7 @@ struct CartItemView: View {
                 .lineLimit(1)
                 
                 SPTextView(
-                    text: "Qty: \(cartItem.quantity)",
+                    text: .cartQuantity(cartItem.quantity),
                     size: DesignConstants.smFont,
                     textColor: .textColor
                 )
@@ -86,7 +86,7 @@ struct CartItemView: View {
             Button(role: .destructive) {
                 onRemove()
             } label: {
-                Label("Delete", systemImage: "trash")
+                Label(String.actionDelete, systemImage: "trash")
             }
         }
     }

@@ -14,7 +14,7 @@ struct ProductPriceCard: View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
                 SPTextView(
-                    text: "Price",
+                    text: .productPrice,
                     size: DesignConstants.smFont,
                     textColor: .textColorLight
                 )

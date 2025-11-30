@@ -54,7 +54,7 @@ struct ProductDetailView: View {
     
     private func handleAddToCart() {
         cartViewModel.addToCart(product)
-        toastManager.show("Added to cart!", type: .success)
+        toastManager.show(.toastAddedToCart, type: .success)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             appNavigator.navigateToBack()

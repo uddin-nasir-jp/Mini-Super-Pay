@@ -18,7 +18,7 @@ struct SPErrorView: View {
                 .foregroundStyle(.red)
             
             SPTextView(
-                text: "Oops!",
+                text: .errorOops,
                 size: DesignConstants.xlFont,
                 weight: .bold,
                 textColor: .textColor,
@@ -39,7 +39,7 @@ struct SPErrorView: View {
                 }
             } label: {
                 SPTextView(
-                    text: "Try Again",
+                    text: .errorTryAgain,
                     size: DesignConstants.baseFont,
                     weight: .semibold,
                     textColor: .white,

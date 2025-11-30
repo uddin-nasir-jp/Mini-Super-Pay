@@ -18,7 +18,7 @@ struct AddToCartButton: View {
                     .font(.system(size: DesignConstants.lgFont, weight: .semibold))
                 
                 SPTextView(
-                    text: isInCart ? "Already in Cart" : "Add to Cart",
+                    text: isInCart ? .productAlreadyInCart : .productAddToCart,
                     size: DesignConstants.lgFont,
                     weight: .bold,
                     textColor: .white
