@@ -18,7 +18,7 @@ struct LoadingView: View {
             CustomTextView(
                 text: message,
                 size: DesignConstants.smFont,
-                textColor: .textColorLight,
+                textColor: .textColor,
                 alignment: .center
             )
         }

@@ -7,7 +7,9 @@
 
 import SwiftUI
 
+// MARK: - Product List View
 struct ProductListView: View {
+    // MARK: - PROPERTIES
     @Environment(AppNavigator.self) private var appNavigator
     @Environment(CartViewModel.self) private var cartViewModel
     @State private var productListViewModel = ProductListViewModel()
@@ -41,9 +43,10 @@ struct ProductListView: View {
             }
         }
         .navigationTitle("Products")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                cartButton
+                cartButtonView
             }
         }
         .task {
@@ -53,6 +56,7 @@ struct ProductListView: View {
         }
     }
     
+    // MARK: - Product list content view
     private var productsList: some View {
         List {
             ForEach(productListViewModel.products) { product in
@@ -75,13 +79,16 @@ struct ProductListView: View {
         }
     }
     
-    private var cartButton: some View {
+    // MARK: - Cart button
+    private var cartButtonView: some View {
         Button {
             appNavigator.navigateTo(.cart)
         } label: {
             ZStack(alignment: .topTrailing) {
                 Image(systemName: "cart.fill")
-                    .font(.title3)
+                    .font(.system(size: DesignConstants.smallIcon))
+                    .padding(.trailing, 4)
+                    .padding(.top, 4)
                 
                 if cartViewModel.cartCount > 0 {
                     CustomTextView(
@@ -90,10 +97,10 @@ struct ProductListView: View {
                         weight: .bold,
                         textColor: .white
                     )
-                    .frame(minWidth: 16, minHeight: 16)
+                    .padding(4)
                     .background(Color.errorColor)
                     .clipShape(Circle())
-                    .offset(x: 10, y: -10)
+                    .offset(x: 6, y: -6)
                 }
             }
         }
@@ -104,5 +111,6 @@ struct ProductListView: View {
     NavigationStack {
         ProductListView()
             .environment(AppNavigator())
+            .environment(CartViewModel())
     }
 }

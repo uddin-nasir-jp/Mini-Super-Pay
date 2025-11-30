@@ -15,15 +15,15 @@ final class ProductListViewModel {
     private let productRepository: ProductRepositoryProtocol
     
     // MARK: - Computed Properties
-    /// Returns products array from loadState, or empty array if not available
+    /// Get products array from loadState
     var products: [Product] {
         productLoadingState.data ?? []
     }
-    /// Returns true when initial products are being loaded
+
     var isLoading: Bool {
         productLoadingState.isLoading
     }
-    /// Returns error message if loading failed
+
     var errorMessage: String? {
         productLoadingState.error?.localizedDescription
     }
@@ -51,4 +51,6 @@ final class ProductListViewModel {
     func retryLoading() async {
         await loadProducts()
     }
+    
+    // TODO: Implement products pagination functions
 }

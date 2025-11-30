@@ -23,7 +23,7 @@ extension Color {
     static let textColor = Color("TextColor")
     
     /// Secondary text color - Descriptions and labels
-    static let textColorLight = Color("TextColorLight")
+    static let textColorLight = Color("TextLightColor")
     
     // MARK: - Status Colors
     static let successColor = Color("SuccessColor")
@@ -31,7 +31,6 @@ extension Color {
     static let warningColor = Color("WarningColor")
     
     // MARK: - Interactive States
-    
     /// Disabled state color for buttons and controls
     static let disabledColor: Color = colorSecondary.opacity(0.8)
     
@@ -40,4 +39,5 @@ extension Color {
     
     /// Disabled text color
     static let disabledTextColor: Color = textColorLight.opacity(0.8)
+    // TODO: Identically use interactive states all of the required views
 }

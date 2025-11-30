@@ -33,7 +33,7 @@ struct ProductListItemView: View {
                 CustomTextView(
                     text: product.description,
                     size: DesignConstants.xsFont,
-                    textColor: .textColor
+                    textColor: .textColorLight
                 )
                 .lineLimit(2)
                 
