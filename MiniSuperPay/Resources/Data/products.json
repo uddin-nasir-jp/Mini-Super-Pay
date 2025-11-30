@@ -1,0 +1,82 @@
+[
+  {
+    "id": "1",
+    "name": "Fresh Apples",
+    "price": 2.99,
+    "description": "Crisp red apples - 1 kg",
+    "imageURL": "apple",
+    "category": "Fruits"
+  },
+  {
+    "id": "2",
+    "name": "Organic Bananas",
+    "price": 1.99,
+    "description": "Sweet organic bananas - bunch",
+    "imageURL": "banana",
+    "category": "Fruits"
+  },
+  {
+    "id": "3",
+    "name": "White Milk",
+    "price": 3.49,
+    "description": "Fresh whole milk - 1 litre",
+    "imageURL": "milk",
+    "category": "Dairy"
+  },
+  {
+    "id": "4",
+    "name": "Cool Bread",
+    "price": 2.49,
+    "description": "Whole wheat bread loaf",
+    "imageURL": "bread",
+    "category": "Bakery"
+  },
+  {
+    "id": "5",
+    "name": "Red Eggs",
+    "price": 4.99,
+    "description": "Free range eggs - dozen",
+    "imageURL": "eggs",
+    "category": "Dairy"
+  },
+  {
+    "id": "6",
+    "name": "Orange Juice",
+    "price": 5.99,
+    "description": "Fresh squeezed orange juice - 1L",
+    "imageURL": "juice",
+    "category": "Beverages"
+  },
+  {
+    "id": "7",
+    "name": "Chicken Breast",
+    "price": 8.99,
+    "description": "Fresh chicken breast - 500g",
+    "imageURL": "chicken",
+    "category": "Meat"
+  },
+  {
+    "id": "8",
+    "name": "Pasta",
+    "price": 1.49,
+    "description": "Italian pasta - 500g",
+    "imageURL": "pasta",
+    "category": "Pantry"
+  },
+  {
+    "id": "9",
+    "name": "Tomatoes",
+    "price": 3.29,
+    "description": "Fresh ripe tomatoes - 1 kg",
+    "imageURL": "tomato",
+    "category": "Vegetables"
+  },
+  {
+    "id": "10",
+    "name": "Cheese",
+    "price": 6.49,
+    "description": "Cheddar cheese - 250g",
+    "imageURL": "cheese",
+    "category": "Dairy"
+  }
+]

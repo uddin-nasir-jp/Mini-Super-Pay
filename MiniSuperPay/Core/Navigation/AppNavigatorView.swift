@@ -10,6 +10,7 @@ import SwiftUI
 struct AppNavigatorView: View {
     // MARK: - PROPERTIES
     @State private var appNavigator = AppNavigator()
+    @State private var cartViewModel = CartViewModel()
     
     var body: some View {
         NavigationStack(path: $appNavigator.navPath) {
@@ -25,6 +26,7 @@ struct AppNavigatorView: View {
                 }
         }
         .environment(appNavigator)
+        .environment(cartViewModel)
     }
     
     // MARK: - Navigation Destinations
