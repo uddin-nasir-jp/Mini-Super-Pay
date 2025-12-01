@@ -65,7 +65,7 @@ struct SPToastView: View {
             .background(
                 Capsule()
                     .fill(.ultraThinMaterial)
-                    .shadow(color: type.color.opacity(0.2), radius: 10, x: 0, y: 4)
+                    .shadow(color: Color.colorPrimary, radius: 10, x: 0, y: 4)
             )
         }
         .padding(.bottom, 80)
