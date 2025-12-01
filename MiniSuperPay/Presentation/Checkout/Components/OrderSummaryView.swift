@@ -22,18 +22,30 @@ struct OrderSummaryView: View {
             )
             
             ForEach(items) { item in
-                HStack {
-                    SPTextView(
-                        text: "\(item.quantity)x",
-                        size: DesignConstants.smFont,
-                        textColor: .textColorLight
+                HStack(spacing: DesignConstants.mediumSpacing) {
+                    SPAsyncImageView(
+                        imageURL: item.product.imageURL ?? "",
+                        width: 50,
+                        height: 50,
+                        cornerRadius: DesignConstants.smallRadius,
+                        contentMode: .fill
                     )
                     
-                    SPTextView(
-                        text: item.product.name,
-                        size: DesignConstants.smFont,
-                        textColor: .textColor
-                    )
+                    VStack(alignment: .leading, spacing: 4) {
+                        SPTextView(
+                            text: item.product.name,
+                            size: DesignConstants.smFont,
+                            weight: .medium,
+                            textColor: .textColor
+                        )
+                        .lineLimit(1)
+                        
+                        SPTextView(
+                            text: .cartQuantity(item.quantity),
+                            size: DesignConstants.xsFont,
+                            textColor: .textColorLight
+                        )
+                    }
                     
                     Spacer()
                     
@@ -41,9 +53,10 @@ struct OrderSummaryView: View {
                         text: item.formattedTotalPrice,
                         size: DesignConstants.smFont,
                         weight: .bold,
-                        textColor: .textColor
+                        textColor: .successColor
                     )
                 }
+                .padding(.vertical, 4)
             }
             
             Divider()

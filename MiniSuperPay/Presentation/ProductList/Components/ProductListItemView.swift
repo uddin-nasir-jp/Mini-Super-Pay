@@ -14,12 +14,13 @@ struct ProductListItemView: View {
     
     var body: some View {
         HStack(spacing: DesignConstants.mediumSpacing) {
-            Image(systemName: "photo")
-                .font(.system(size: DesignConstants.extraLargeIcon))
-                .foregroundStyle(.secondary)
-                .frame(width: 60, height: 60)
-                .background(Color(.systemGray6))
-                .cornerRadius(DesignConstants.smallRadius)
+            SPAsyncImageView(
+                imageURL: product.imageURL ?? "",
+                width: 80,
+                height: 80,
+                cornerRadius: DesignConstants.mediumRadius,
+                contentMode: .fill
+            )
             
             VStack(alignment: .leading, spacing: DesignConstants.smallSpacing) {
                 SPTextView(

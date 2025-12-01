@@ -8,23 +8,22 @@
 import SwiftUI
 
 struct ProductImageView: View {
-    let imageName: String?
+    let imageURL: String
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: DesignConstants.mediumRadius)
-                .fill(Color(.systemGray6))
-                .frame(height: 280)
-            
-            Image(systemName: imageName ?? "photo")
-                .font(.system(size: 100))
-                .foregroundStyle(Color.textColorLight)
+        VStack {
+            SPAsyncImageView(
+                imageURL: imageURL,
+                height: 280,
+                cornerRadius: DesignConstants.largeRadius,
+                contentMode: .fit
+            )
+            .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4)
         }
-        .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4)
     }
 }
 
 #Preview {
-    ProductImageView(imageName: "cart")
+    ProductImageView(imageURL: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=800&q=80")
         .padding()
 }

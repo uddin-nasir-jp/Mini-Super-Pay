@@ -18,27 +18,24 @@ struct ProductDetailView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: DesignConstants.largeSpacing) {
-                ProductImageView(imageName: "photo")
-                    .padding(.horizontal)
+                /// Product image
+                ProductImageView(imageURL: product.imageURL ?? "")
                 
                 VStack(alignment: .leading, spacing: DesignConstants.largeSpacing) {
-                    HStack {
-                        ProductCategoryBadge(category: product.category)
-                        Spacer()
-                    }
+                    /// Product category
+                    ProductCategoryBadge(category: product.category)
                     
+                    /// Product Info
                     ProductInfoSection(
                         name: product.name,
                         description: product.description
                     )
                     
+                    // Price card
                     ProductPriceCard(price: product.formattedPrice)
-                    
-                    Spacer(minLength: 100)
                 }
-                .padding(.horizontal)
             }
-            .padding(.vertical, DesignConstants.mediumSpacing)
+            .padding(DesignConstants.mediumSpacing)
         }
         .safeAreaInset(edge: .bottom) {
             AddToCartButton(

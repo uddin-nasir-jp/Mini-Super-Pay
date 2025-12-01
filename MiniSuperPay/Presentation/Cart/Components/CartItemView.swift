@@ -16,12 +16,13 @@ struct CartItemView: View {
     
     var body: some View {
         HStack(spacing: DesignConstants.mediumSpacing) {
-            Image(systemName: "photo")
-                .font(.system(size: DesignConstants.largeIcon))
-                .foregroundStyle(.secondary)
-                .frame(width: 60, height: 60)
-                .background(Color(.systemGray6))
-                .cornerRadius(DesignConstants.smallRadius)
+            SPAsyncImageView(
+                imageURL: cartItem.product.imageURL ?? "",
+                width: 70,
+                height: 70,
+                cornerRadius: DesignConstants.mediumRadius,
+                contentMode: .fill
+            )
             
             VStack(alignment: .leading, spacing: DesignConstants.extraSmallSpacing) {
                 SPTextView(

@@ -1,82 +1,122 @@
 [
   {
     "id": "1",
-    "name": "Fresh Apples",
-    "price": 2.99,
-    "description": "Crisp red apples - 1 kg",
-    "imageURL": "apple",
+    "name": "Fresh Organic Apples",
+    "price": 4.99,
+    "description": "Premium crisp red apples from local farms. Perfect for snacking or baking. Rich in vitamins and fiber. Naturally sweet and crunchy.",
+    "imageURL": "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=800&q=80",
     "category": "Fruits"
   },
   {
     "id": "2",
     "name": "Organic Bananas",
-    "price": 1.99,
-    "description": "Sweet organic bananas - bunch",
-    "imageURL": "banana",
+    "price": 2.99,
+    "description": "Sweet organic bananas hand-picked at peak ripeness. Great source of potassium and energy. Perfect for smoothies, breakfast, or healthy snacks.",
+    "imageURL": "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=800&q=80",
     "category": "Fruits"
   },
   {
     "id": "3",
-    "name": "White Milk",
-    "price": 3.49,
-    "description": "Fresh whole milk - 1 litre",
-    "imageURL": "milk",
+    "name": "Premium Whole Milk",
+    "price": 4.49,
+    "description": "Fresh whole milk from grass-fed cows. Rich, creamy taste with essential vitamins A and D. Perfect for drinking, cooking, and baking.",
+    "imageURL": "https://images.unsplash.com/photo-1563636619-e9143da7973b?w=800&q=80",
     "category": "Dairy"
   },
   {
     "id": "4",
-    "name": "Cool Bread",
-    "price": 2.49,
-    "description": "Whole wheat bread loaf",
-    "imageURL": "bread",
+    "name": "Artisan Whole Wheat Bread",
+    "price": 3.99,
+    "description": "Freshly baked whole wheat bread made daily. Soft texture with hearty grain flavor. No artificial preservatives. Perfect for sandwiches and toast.",
+    "imageURL": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80",
     "category": "Bakery"
   },
   {
     "id": "5",
-    "name": "Red Eggs",
-    "price": 4.99,
-    "description": "Free range eggs - dozen",
-    "imageURL": "eggs",
+    "name": "Free-Range Brown Eggs",
+    "price": 5.99,
+    "description": "Farm fresh free-range eggs from happy hens. Rich in protein and omega-3. Large grade AA quality. Perfect for any meal of the day.",
+    "imageURL": "https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=800&q=80",
     "category": "Dairy"
   },
   {
     "id": "6",
-    "name": "Orange Juice",
-    "price": 5.99,
-    "description": "Fresh squeezed orange juice - 1L",
-    "imageURL": "juice",
+    "name": "Fresh Squeezed Orange Juice",
+    "price": 6.99,
+    "description": "100% pure orange juice with no added sugar. Packed with vitamin C and natural goodness. Cold-pressed for maximum flavor and nutrients.",
+    "imageURL": "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=800&q=80",
     "category": "Beverages"
   },
   {
     "id": "7",
-    "name": "Chicken Breast",
-    "price": 8.99,
-    "description": "Fresh chicken breast - 500g",
-    "imageURL": "chicken",
+    "name": "Premium Chicken Breast",
+    "price": 12.99,
+    "description": "Hormone-free chicken breast, skinless and boneless. High in protein, low in fat. Perfectly sized portions for healthy meals and meal prep.",
+    "imageURL": "https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=800&q=80",
     "category": "Meat"
   },
   {
     "id": "8",
-    "name": "Pasta",
-    "price": 1.49,
-    "description": "Italian pasta - 500g",
-    "imageURL": "pasta",
+    "name": "Italian Penne Pasta",
+    "price": 2.99,
+    "description": "Authentic Italian durum wheat pasta. Perfect al dente texture. Great for any sauce. Cooks in 8-10 minutes. Family-size 500g package.",
+    "imageURL": "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=800&q=80",
     "category": "Pantry"
   },
   {
     "id": "9",
-    "name": "Tomatoes",
-    "price": 3.29,
-    "description": "Fresh ripe tomatoes - 1 kg",
-    "imageURL": "tomato",
+    "name": "Vine-Ripened Tomatoes",
+    "price": 4.29,
+    "description": "Juicy vine-ripened tomatoes bursting with flavor. Grown locally with care. Rich in lycopene and vitamins. Perfect for salads, sauces, and cooking.",
+    "imageURL": "https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=800&q=80",
     "category": "Vegetables"
   },
   {
     "id": "10",
-    "name": "Cheese",
-    "price": 6.49,
-    "description": "Cheddar cheese - 250g",
-    "imageURL": "cheese",
+    "name": "Aged Cheddar Cheese",
+    "price": 7.99,
+    "description": "Premium aged cheddar with bold, sharp flavor. Perfect for cheese boards, sandwiches, or grating. Made from high-quality milk. 250g block.",
+    "imageURL": "https://images.unsplash.com/photo-1552767059-ce182ead6c1b?w=800&q=80",
     "category": "Dairy"
+  },
+  {
+    "id": "11",
+    "name": "Fresh Strawberries",
+    "price": 5.49,
+    "description": "Sweet, juicy strawberries at peak ripeness. Handpicked for quality. Loaded with vitamin C and antioxidants. Perfect for desserts or snacking.",
+    "imageURL": "https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=800&q=80",
+    "category": "Fruits"
+  },
+  {
+    "id": "12",
+    "name": "Organic Baby Spinach",
+    "price": 3.79,
+    "description": "Fresh organic baby spinach leaves. Tender and nutrient-packed. Great for salads, smoothies, or cooking. Pre-washed and ready to eat.",
+    "imageURL": "https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=800&q=80",
+    "category": "Vegetables"
+  },
+  {
+    "id": "13",
+    "name": "Wild Caught Salmon",
+    "price": 16.99,
+    "description": "Premium wild-caught salmon fillet. Rich in omega-3 fatty acids. Firm texture and delicate flavor. Sustainably sourced. Perfect for grilling or baking.",
+    "imageURL": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=800&q=80",
+    "category": "Seafood"
+  },
+  {
+    "id": "14",
+    "name": "Greek Yogurt",
+    "price": 4.99,
+    "description": "Thick and creamy Greek yogurt. High in protein, low in sugar. Perfect for breakfast with granola or as a healthy snack. 500g container.",
+    "imageURL": "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=800&q=80",
+    "category": "Dairy"
+  },
+  {
+    "id": "15",
+    "name": "Avocados",
+    "price": 3.99,
+    "description": "Perfectly ripe Hass avocados. Creamy texture and rich taste. Packed with healthy fats and fiber. Great for toast, salads, or guacamole.",
+    "imageURL": "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=800&q=80",
+    "category": "Fruits"
   }
 ]

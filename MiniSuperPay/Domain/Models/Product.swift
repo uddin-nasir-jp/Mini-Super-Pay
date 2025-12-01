@@ -29,7 +29,7 @@ extension Product {
         name: "Fresh Apples",
         price: 2.99,
         description: "Crisp red apples - 1 kg",
-        imageURL: "apple",
+        imageURL: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=800&q=80",
         category: "Fruits"
     )
     
