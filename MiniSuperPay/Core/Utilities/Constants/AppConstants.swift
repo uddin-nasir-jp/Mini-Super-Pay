@@ -14,7 +14,7 @@ enum AppConstants {
     static let appVersion = "1.0.0"
     
     // MARK: - Wallet constants
-    static let defaultWalletBalance: Double = 10.00
+    static let defaultWalletBalance: Double = 50.00
     static let minimumWalletBalance: Double = 0.00
     
     // MARK: - Cart constants

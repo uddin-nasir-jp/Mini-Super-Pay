@@ -113,10 +113,7 @@ final class CheckoutViewModel {
         checkoutLoadingState = .loading
         do {
             let cartItems = try cartRepository.loadCart()
-            let response = try await checkoutRepository.processCheckout(
-                items: cartItems,
-                total: totalCartPrice
-            )
+            let response = try await checkoutRepository.processCheckout(items: cartItems, total: totalCartPrice)
             checkoutLoadingState = .success(response)
             loadWallet()  // Refresh wallet balance
         } catch {

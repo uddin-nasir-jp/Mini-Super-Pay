@@ -24,11 +24,4 @@ extension CheckoutResponse {
         message: "Payment processed successfully",
         timestamp: Date()
     )
-    
-    static let mockFailure = CheckoutResponse(
-        success: false,
-        transactionId: nil,
-        message: "Payment failed. Please try again.",
-        timestamp: Date()
-    )
 }

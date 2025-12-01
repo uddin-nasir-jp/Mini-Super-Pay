@@ -78,7 +78,7 @@ final class CheckoutRepository: CheckoutRepositoryProtocol {
             }
             try walletStorage.saveWallet(wallet)
             
-            try cartRepository.clearCart()
+            //try cartRepository.clearCart()
         }
         
         return response

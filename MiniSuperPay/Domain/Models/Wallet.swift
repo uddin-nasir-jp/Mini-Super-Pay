@@ -29,15 +29,6 @@ struct Wallet: Codable, Equatable {
     }
     
     func hasSufficientFunds(for amount: Double) -> Bool {
-        return balance >= amount
+        balance >= amount
     }
-}
-
-// MARK: - Mock Wallet value
-extension Wallet {
-    static let mockWallet = Wallet(balance: 100.00)
-    
-    static let mockWalletLowBalance = Wallet(balance: 5.00)
-    
-    static let mockWalletHighBalance = Wallet(balance: 1000.00)
 }

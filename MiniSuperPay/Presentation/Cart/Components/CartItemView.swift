@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CartItemView: View {
+    // MARK: - PROPERTIES
     let cartItem: CartItem
     let onIncrement: () -> Void
     let onDecrement: () -> Void
