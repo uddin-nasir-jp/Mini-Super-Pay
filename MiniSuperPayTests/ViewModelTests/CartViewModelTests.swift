@@ -9,19 +9,19 @@ import XCTest
 @testable import MiniSuperPay
 
 final class CartViewModelTests: XCTestCase {
-    // MARK: - System Under Test
-    var sut: CartViewModel!
+    // MARK: - PROPERTIES
+    var cartViewModel: CartViewModel!
     var mockRepository: MockCartRepository!
     
     // MARK: - Test Lifecycle
     override func setUp() {
         super.setUp()
         mockRepository = MockCartRepository()
-        sut = CartViewModel(cartRepository: mockRepository)
+        cartViewModel = CartViewModel(cartRepository: mockRepository)
     }
     
     override func tearDown() {
-        sut = nil
+        cartViewModel = nil
         mockRepository = nil
         super.tearDown()
     }
@@ -31,9 +31,9 @@ final class CartViewModelTests: XCTestCase {
         // Given - setUp creates empty cart
         
         // When - check initial state
-        let items = sut.cartItems
-        let total = sut.totalPrice
-        let isEmpty = sut.isEmpty
+        let items = cartViewModel.cartItems
+        let total = cartViewModel.totalPrice
+        let isEmpty = cartViewModel.isEmpty
         
         // Then
         XCTAssertTrue(items.isEmpty, "Cart should be empty initially")
@@ -45,7 +45,7 @@ final class CartViewModelTests: XCTestCase {
         // Given - setUp creates empty cart
         
         // When
-        let count = sut.cartCount
+        let count = cartViewModel.cartCount
         
         // Then
         XCTAssertEqual(count, 0, "Cart count should be 0 initially")
@@ -57,27 +57,27 @@ final class CartViewModelTests: XCTestCase {
         let product = Product.testProduct1
         
         // When
-        sut.addToCart(product)
+        cartViewModel.addToCart(product)
         
         // Then
-        XCTAssertEqual(sut.cartItems.count, 1, "Cart should contain 1 item")
-        XCTAssertEqual(sut.cartItems.first?.product.id, product.id, "Product ID should match")
-        XCTAssertEqual(sut.cartItems.first?.quantity, 1, "Quantity should be 1")
-        XCTAssertFalse(sut.isEmpty, "Cart should not be empty")
+        XCTAssertEqual(cartViewModel.cartItems.count, 1, "Cart should contain 1 item")
+        XCTAssertEqual(cartViewModel.cartItems.first?.product.id, product.id, "Product ID should match")
+        XCTAssertEqual(cartViewModel.cartItems.first?.quantity, 1, "Quantity should be 1")
+        XCTAssertFalse(cartViewModel.isEmpty, "Cart should not be empty")
         XCTAssertEqual(mockRepository.addToCartCallCount, 1, "addToCart should be called once")
     }
     
     func test_addToCart_existingProduct_shouldIncreaseQuantity() {
         // Given
         let product = Product.testProduct1
-        sut.addToCart(product)
+        cartViewModel.addToCart(product)
         
         // When - add same product again
-        sut.addToCart(product)
+        cartViewModel.addToCart(product)
         
         // Then
-        XCTAssertEqual(sut.cartItems.count, 1, "Should still have 1 unique item")
-        XCTAssertEqual(sut.cartItems.first?.quantity, 2, "Quantity should increase to 2")
+        XCTAssertEqual(cartViewModel.cartItems.count, 1, "Should still have 1 unique item")
+        XCTAssertEqual(cartViewModel.cartItems.first?.quantity, 2, "Quantity should increase to 2")
         XCTAssertEqual(mockRepository.addToCartCallCount, 2, "addToCart should be called twice")
     }
     
@@ -88,53 +88,53 @@ final class CartViewModelTests: XCTestCase {
         let product3 = Product.testProduct3
         
         // When
-        sut.addToCart(product1)
-        sut.addToCart(product2)
-        sut.addToCart(product3)
+        cartViewModel.addToCart(product1)
+        cartViewModel.addToCart(product2)
+        cartViewModel.addToCart(product3)
         
         // Then
-        XCTAssertEqual(sut.cartItems.count, 3, "Cart should contain 3 different items")
-        XCTAssertEqual(sut.cartCount, 3, "Total quantity should be 3")
+        XCTAssertEqual(cartViewModel.cartItems.count, 3, "Cart should contain 3 different items")
+        XCTAssertEqual(cartViewModel.cartCount, 3, "Total quantity should be 3")
     }
     
     // MARK: - Increase Quantity Tests
     func test_increaseQuantity_shouldIncrementByOne() {
         // Given
         let product = Product.testProduct1
-        sut.addToCart(product)
-        let itemId = sut.cartItems.first!.id
+        cartViewModel.addToCart(product)
+        let itemId = cartViewModel.cartItems.first!.id
         
         // When
-        sut.increaseQuantity(for: itemId)
+        cartViewModel.increaseQuantity(for: itemId)
         
         // Then
-        XCTAssertEqual(sut.cartItems.first?.quantity, 2, "Quantity should increase to 2")
+        XCTAssertEqual(cartViewModel.cartItems.first?.quantity, 2, "Quantity should increase to 2")
         XCTAssertEqual(mockRepository.updateQuantityCallCount, 1, "updateQuantity should be called")
     }
     
     func test_increaseQuantity_atMaximum_shouldNotIncrement() {
         // Given
         let product = Product.testProduct1
-        sut.addToCart(product)
-        let itemId = sut.cartItems.first!.id
+        cartViewModel.addToCart(product)
+        let itemId = cartViewModel.cartItems.first!.id
         
         // Set quantity to maximum
         for _ in 1..<AppConstants.maximumCartQuantity {
-            sut.increaseQuantity(for: itemId)
+            cartViewModel.increaseQuantity(for: itemId)
         }
-        let quantityBeforeMax = sut.cartItems.first?.quantity
+        let quantityBeforeMax = cartViewModel.cartItems.first?.quantity
         
         // When - try to increase beyond maximum
-        sut.increaseQuantity(for: itemId)
+        cartViewModel.increaseQuantity(for: itemId)
         
         // Then
         XCTAssertEqual(
-            sut.cartItems.first?.quantity,
+            cartViewModel.cartItems.first?.quantity,
             quantityBeforeMax,
             "Quantity should not exceed maximum"
         )
         XCTAssertEqual(
-            sut.cartItems.first?.quantity,
+            cartViewModel.cartItems.first?.quantity,
             AppConstants.maximumCartQuantity,
             "Quantity should stay at maximum"
         )
@@ -143,42 +143,42 @@ final class CartViewModelTests: XCTestCase {
     func test_increaseQuantity_nonExistentItem_shouldDoNothing() {
         // Given
         let product = Product.testProduct1
-        sut.addToCart(product)
+        cartViewModel.addToCart(product)
         
         // When - try to increase non-existent item
-        sut.increaseQuantity(for: "non-existent-id")
+        cartViewModel.increaseQuantity(for: "non-existent-id")
         
         // Then
-        XCTAssertEqual(sut.cartItems.first?.quantity, 1, "Quantity should remain unchanged")
+        XCTAssertEqual(cartViewModel.cartItems.first?.quantity, 1, "Quantity should remain unchanged")
     }
     
     // MARK: - Decrease Quantity Tests
     func test_decreaseQuantity_shouldDecrementByOne() {
         // Given
         let product = Product.testProduct1
-        sut.addToCart(product)
-        let itemId = sut.cartItems.first!.id
-        sut.increaseQuantity(for: itemId) // Make quantity = 2
+        cartViewModel.addToCart(product)
+        let itemId = cartViewModel.cartItems.first!.id
+        cartViewModel.increaseQuantity(for: itemId) // Make quantity = 2
         
         // When
-        sut.decreaseQuantity(for: itemId)
+        cartViewModel.decreaseQuantity(for: itemId)
         
         // Then
-        XCTAssertEqual(sut.cartItems.first?.quantity, 1, "Quantity should decrease to 1")
+        XCTAssertEqual(cartViewModel.cartItems.first?.quantity, 1, "Quantity should decrease to 1")
     }
     
     func test_decreaseQuantity_atMinimum_shouldNotDecrement() {
         // Given
         let product = Product.testProduct1
-        sut.addToCart(product)
-        let itemId = sut.cartItems.first!.id
+        cartViewModel.addToCart(product)
+        let itemId = cartViewModel.cartItems.first!.id
         
         // When - try to decrease below minimum
-        sut.decreaseQuantity(for: itemId)
+        cartViewModel.decreaseQuantity(for: itemId)
         
         // Then
         XCTAssertEqual(
-            sut.cartItems.first?.quantity,
+            cartViewModel.cartItems.first?.quantity,
             AppConstants.minimumCartQuantity,
             "Quantity should stay at minimum"
         )
@@ -187,28 +187,28 @@ final class CartViewModelTests: XCTestCase {
     func test_decreaseQuantity_nonExistentItem_shouldDoNothing() {
         // Given
         let product = Product.testProduct1
-        sut.addToCart(product)
+        cartViewModel.addToCart(product)
         
         // When - try to decrease non-existent item
-        sut.decreaseQuantity(for: "non-existent-id")
+        cartViewModel.decreaseQuantity(for: "non-existent-id")
         
         // Then
-        XCTAssertEqual(sut.cartItems.first?.quantity, 1, "Quantity should remain unchanged")
+        XCTAssertEqual(cartViewModel.cartItems.first?.quantity, 1, "Quantity should remain unchanged")
     }
     
     // MARK: - Remove Item Tests
     func test_removeFromCart_shouldRemoveItem() {
         // Given
         let product = Product.testProduct1
-        sut.addToCart(product)
-        let itemId = sut.cartItems.first!.id
+        cartViewModel.addToCart(product)
+        let itemId = cartViewModel.cartItems.first!.id
         
         // When
-        sut.removeItem(itemId)
+        cartViewModel.removeItem(itemId)
         
         // Then
-        XCTAssertTrue(sut.cartItems.isEmpty, "Cart should be empty after removing item")
-        XCTAssertTrue(sut.isEmpty, "isEmpty should return true")
+        XCTAssertTrue(cartViewModel.cartItems.isEmpty, "Cart should be empty after removing item")
+        XCTAssertTrue(cartViewModel.isEmpty, "isEmpty should return true")
         XCTAssertEqual(mockRepository.removeFromCartCallCount, 1, "removeFromCart should be called")
     }
     
@@ -216,17 +216,17 @@ final class CartViewModelTests: XCTestCase {
         // Given
         let product1 = Product.testProduct1
         let product2 = Product.testProduct2
-        sut.addToCart(product1)
-        sut.addToCart(product2)
-        let itemIdToRemove = sut.cartItems.first!.id
+        cartViewModel.addToCart(product1)
+        cartViewModel.addToCart(product2)
+        let itemIdToRemove = cartViewModel.cartItems.first!.id
         
         // When
-        sut.removeItem(itemIdToRemove)
+        cartViewModel.removeItem(itemIdToRemove)
         
         // Then
-        XCTAssertEqual(sut.cartItems.count, 1, "Should have 1 item remaining")
+        XCTAssertEqual(cartViewModel.cartItems.count, 1, "Should have 1 item remaining")
         XCTAssertFalse(
-            sut.cartItems.contains { $0.id == itemIdToRemove },
+            cartViewModel.cartItems.contains { $0.id == itemIdToRemove },
             "Removed item should not be in cart"
         )
     }
@@ -236,16 +236,16 @@ final class CartViewModelTests: XCTestCase {
         // Given
         let product1 = Product.testProduct1
         let product2 = Product.testProduct2
-        sut.addToCart(product1)
-        sut.addToCart(product2)
+        cartViewModel.addToCart(product1)
+        cartViewModel.addToCart(product2)
         
         // When
-        sut.clearCart()
+        cartViewModel.clearCart()
         
         // Then
-        XCTAssertTrue(sut.cartItems.isEmpty, "Cart should be empty after clearing")
-        XCTAssertTrue(sut.isEmpty, "isEmpty should return true")
-        XCTAssertEqual(sut.totalPrice, 0.0, accuracy: 0.01, "Total should be 0.0")
+        XCTAssertTrue(cartViewModel.cartItems.isEmpty, "Cart should be empty after clearing")
+        XCTAssertTrue(cartViewModel.isEmpty, "isEmpty should return true")
+        XCTAssertEqual(cartViewModel.totalPrice, 0.0, accuracy: 0.01, "Total should be 0.0")
         XCTAssertEqual(mockRepository.clearCartCallCount, 1, "clearCart should be called")
     }
     
@@ -253,10 +253,10 @@ final class CartViewModelTests: XCTestCase {
         // Given - cart is already empty
         
         // When
-        sut.clearCart()
+        cartViewModel.clearCart()
         
         // Then
-        XCTAssertTrue(sut.cartItems.isEmpty, "Cart should remain empty")
+        XCTAssertTrue(cartViewModel.cartItems.isEmpty, "Cart should remain empty")
         XCTAssertEqual(mockRepository.clearCartCallCount, 1, "clearCart should still be called")
     }
     
@@ -265,12 +265,12 @@ final class CartViewModelTests: XCTestCase {
         // Given
         let product1 = Product.testProduct1 // price: 10.0
         let product2 = Product.testProduct2 // price: 20.0
-        sut.addToCart(product1)
-        sut.addToCart(product2)
-        sut.addToCart(product2) // quantity = 2 for product2
+        cartViewModel.addToCart(product1)
+        cartViewModel.addToCart(product2)
+        cartViewModel.addToCart(product2) // quantity = 2 for product2
         
         // When
-        let total = sut.totalPrice
+        let total = cartViewModel.totalPrice
         
         // Then
         // 10.0 + (20.0 * 2) = 50.0
@@ -281,12 +281,12 @@ final class CartViewModelTests: XCTestCase {
         // Given
         let product1 = Product.testProduct1
         let product2 = Product.testProduct2
-        sut.addToCart(product1) // quantity = 1
-        sut.addToCart(product2) // quantity = 1
-        sut.addToCart(product2) // quantity = 2
+        cartViewModel.addToCart(product1) // quantity = 1
+        cartViewModel.addToCart(product2) // quantity = 1
+        cartViewModel.addToCart(product2) // quantity = 2
         
         // When
-        let count = sut.cartCount
+        let count = cartViewModel.cartCount
         
         // Then
         XCTAssertEqual(count, 3, "Total count should be 3 (1 + 2)")
@@ -295,10 +295,10 @@ final class CartViewModelTests: XCTestCase {
     func test_formattedTotalPrice_shouldReturnCurrencyString() {
         // Given
         let product = Product.testProduct1 // price: 10.0
-        sut.addToCart(product)
+        cartViewModel.addToCart(product)
         
         // When
-        let formatted = sut.formattedTotalPrice
+        let formatted = cartViewModel.formattedTotalPrice
         
         // Then
         XCTAssertTrue(formatted.contains("$"), "Formatted price should contain currency symbol")
@@ -313,11 +313,11 @@ final class CartViewModelTests: XCTestCase {
         mockRepository.errorToThrow = StorageError.saveFailed
         
         // When
-        sut.addToCart(product)
+        cartViewModel.addToCart(product)
         
         // Then
-        XCTAssertNotNil(sut.errorMessage, "Error message should be set")
-        XCTAssertTrue(sut.cartItems.isEmpty, "Cart should remain empty on error")
+        XCTAssertNotNil(cartViewModel.errorMessage, "Error message should be set")
+        XCTAssertTrue(cartViewModel.cartItems.isEmpty, "Cart should remain empty on error")
     }
     
     func test_removeFromCart_whenRepositoryThrowsError_shouldHandleGracefully() {
@@ -326,9 +326,9 @@ final class CartViewModelTests: XCTestCase {
         mockRepository.errorToThrow = StorageError.saveFailed
         
         // When
-        sut.removeItem("any-id")
+        cartViewModel.removeItem("any-id")
         
         // Then
-        XCTAssertNotNil(sut.errorMessage, "Error message should be set")
+        XCTAssertNotNil(cartViewModel.errorMessage, "Error message should be set")
     }
 }

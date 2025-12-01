@@ -9,17 +9,17 @@ import XCTest
 @testable import MiniSuperPay
 
 final class CheckoutRepositoryTests: XCTestCase {
-    // MARK: - System Under Test
-    var sut: MockCheckoutRepository!
+    // MARK: - PROPERTIES
+    var checkoutRepo: MockCheckoutRepository!
     
     // MARK: - Test Lifecycle
     override func setUp() {
         super.setUp()
-        sut = MockCheckoutRepository()
+        checkoutRepo = MockCheckoutRepository()
     }
     
     override func tearDown() {
-        sut = nil
+        checkoutRepo = nil
         super.tearDown()
     }
     
@@ -31,7 +31,7 @@ final class CheckoutRepositoryTests: XCTestCase {
         
         // When/Then
         XCTAssertNoThrow(
-            try sut.validateCheckout(items: items, walletBalance: walletBalance),
+            try checkoutRepo.validateCheckout(items: items, walletBalance: walletBalance),
             "Validation should succeed with sufficient funds"
         )
     }
@@ -40,11 +40,11 @@ final class CheckoutRepositoryTests: XCTestCase {
         // Given
         let items: [CartItem] = []
         let walletBalance = 1000.0
-        sut.shouldThrowError = false
+        checkoutRepo.shouldThrowError = false
         
         // When/Then
         XCTAssertThrowsError(
-            try sut.validateCheckout(items: items, walletBalance: walletBalance),
+            try checkoutRepo.validateCheckout(items: items, walletBalance: walletBalance),
             "Should throw error for empty cart"
         ) { error in
             XCTAssertTrue(error is CheckoutError, "Error should be of type CheckoutError")
@@ -56,11 +56,11 @@ final class CheckoutRepositoryTests: XCTestCase {
         // Given
         let items = [CartItem.testCartItem1]
         let walletBalance = 1000.0
-        sut.shouldThrowError = true
+        checkoutRepo.shouldThrowError = true
         
         // When/Then
         XCTAssertThrowsError(
-            try sut.validateCheckout(items: items, walletBalance: walletBalance),
+            try checkoutRepo.validateCheckout(items: items, walletBalance: walletBalance),
             "Should throw error for insufficient funds"
         ) { error in
             XCTAssertTrue(error is CheckoutError, "Error should be of type CheckoutError")
@@ -77,28 +77,28 @@ final class CheckoutRepositoryTests: XCTestCase {
         // Given
         let items = [CartItem.testCartItem1] // 10.0
         let total = 10.0
-        sut.shouldThrowError = false
-        sut.mockResponse = CheckoutResponse.testSuccessResponse
+        checkoutRepo.shouldThrowError = false
+        checkoutRepo.mockResponse = CheckoutResponse.testSuccessResponse
         
         // When
-        let response = try await sut.processCheckout(items: items, total: total)
+        let response = try await checkoutRepo.processCheckout(items: items, total: total)
         
         // Then
         XCTAssertTrue(response.success, "Response should indicate success")
         XCTAssertNotNil(response.transactionId, "Transaction ID should be present")
-        XCTAssertEqual(sut.processCheckoutCallCount, 1, "processCheckout should be called once")
+        XCTAssertEqual(checkoutRepo.processCheckoutCallCount, 1, "processCheckout should be called once")
     }
     
     func test_processCheckout_withInsufficientFunds_shouldThrowError() async {
         // Given
         let items = [CartItem.testCartItem1]
         let total = 50.0
-        sut.shouldThrowError = true
-        sut.errorToThrow = CheckoutError.insufficientFunds
+        checkoutRepo.shouldThrowError = true
+        checkoutRepo.errorToThrow = CheckoutError.insufficientFunds
         
         // When/Then
         do {
-            _ = try await sut.processCheckout(items: items, total: total)
+            _ = try await checkoutRepo.processCheckout(items: items, total: total)
             XCTFail("Should throw insufficientFunds error")
         } catch {
             XCTAssertTrue(error is CheckoutError, "Error should be of type CheckoutError")
@@ -114,12 +114,12 @@ final class CheckoutRepositoryTests: XCTestCase {
         // Given
         let items: [CartItem] = []
         let total = 0.0
-        sut.shouldThrowError = true
-        sut.errorToThrow = CheckoutError.emptyCart
+        checkoutRepo.shouldThrowError = true
+        checkoutRepo.errorToThrow = CheckoutError.emptyCart
         
         // When/Then
         do {
-            _ = try await sut.processCheckout(items: items, total: total)
+            _ = try await checkoutRepo.processCheckout(items: items, total: total)
             XCTFail("Should throw emptyCart error")
         } catch {
             XCTAssertTrue(error is CheckoutError, "Error should be of type CheckoutError")
@@ -131,28 +131,28 @@ final class CheckoutRepositoryTests: XCTestCase {
         // Given
         let items = [CartItem.testCartItem1, CartItem.testCartItem2]
         let total = 50.0
-        sut.shouldThrowError = false
+        checkoutRepo.shouldThrowError = false
         
         // When
-        _ = try await sut.processCheckout(items: items, total: total)
+        _ = try await checkoutRepo.processCheckout(items: items, total: total)
         
         // Then
-        XCTAssertNotNil(sut.lastProcessedItems, "Should store processed items")
-        XCTAssertEqual(sut.lastProcessedItems?.count, 2, "Should store all items")
-        XCTAssertEqual(sut.lastProcessedTotal, total, "Should store total amount")
+        XCTAssertNotNil(checkoutRepo.lastProcessedItems, "Should store processed items")
+        XCTAssertEqual(checkoutRepo.lastProcessedItems?.count, 2, "Should store all items")
+        XCTAssertEqual(checkoutRepo.lastProcessedTotal, total, "Should store total amount")
     }
     
     func test_processCheckout_shouldSimulateNetworkDelay() async throws {
         // Given
         let items = [CartItem.testCartItem1]
         let total = 10.0
-        sut.simulatedDelay = 1_000_000_000 // 1 second in nanoseconds
-        sut.shouldThrowError = false
+        checkoutRepo.simulatedDelay = 1_000_000_000 // 1 second in nanoseconds
+        checkoutRepo.shouldThrowError = false
         
         let startTime = Date()
         
         // When
-        _ = try await sut.processCheckout(items: items, total: total)
+        _ = try await checkoutRepo.processCheckout(items: items, total: total)
         
         let endTime = Date()
         let duration = endTime.timeIntervalSince(startTime)
@@ -171,14 +171,14 @@ final class CheckoutRepositoryTests: XCTestCase {
         let item2 = CartItem.testCartItem2 // 20.0 * 2 = 40.0
         let items = [item1, item2]
         let total = 50.0
-        sut.shouldThrowError = false
+        checkoutRepo.shouldThrowError = false
         
         // When
-        _ = try await sut.processCheckout(items: items, total: total)
+        _ = try await checkoutRepo.processCheckout(items: items, total: total)
         
         // Then
-        XCTAssertNotNil(sut.lastProcessedTotal, "Last processed total should not be nil")
-        XCTAssertEqual(sut.lastProcessedTotal ?? 0.0, 50.0, accuracy: 0.01, "Total should be 50.0")
+        XCTAssertNotNil(checkoutRepo.lastProcessedTotal, "Last processed total should not be nil")
+        XCTAssertEqual(checkoutRepo.lastProcessedTotal ?? 0.0, 50.0, accuracy: 0.01, "Total should be 50.0")
     }
     
     // MARK: - Success Response Tests
@@ -186,11 +186,11 @@ final class CheckoutRepositoryTests: XCTestCase {
         // Given
         let items = [CartItem.testCartItem1]
         let total = 10.0
-        sut.mockResponse = CheckoutResponse.testSuccessResponse
-        sut.shouldThrowError = false
+        checkoutRepo.mockResponse = CheckoutResponse.testSuccessResponse
+        checkoutRepo.shouldThrowError = false
         
         // When
-        let response = try await sut.processCheckout(items: items, total: total)
+        let response = try await checkoutRepo.processCheckout(items: items, total: total)
         
         // Then
         XCTAssertNotNil(response.transactionId, "Success response should have transaction ID")
@@ -205,11 +205,11 @@ final class CheckoutRepositoryTests: XCTestCase {
         // Given
         let items = [CartItem.testCartItem1]
         let total = 10.0
-        sut.mockResponse = CheckoutResponse.testFailureResponse
-        sut.shouldThrowError = false
+        checkoutRepo.mockResponse = CheckoutResponse.testFailureResponse
+        checkoutRepo.shouldThrowError = false
         
         // When
-        let response = try await sut.processCheckout(items: items, total: total)
+        let response = try await checkoutRepo.processCheckout(items: items, total: total)
         
         // Then
         XCTAssertFalse(response.success, "Response should indicate failure")
@@ -221,19 +221,19 @@ final class CheckoutRepositoryTests: XCTestCase {
         // Given
         let items = [CartItem.testCartItem1]
         let total = 10.0
-        sut.shouldThrowError = false
+        checkoutRepo.shouldThrowError = false
         
         // When - make 3 concurrent requests
-        async let request1 = sut.processCheckout(items: items, total: total)
-        async let request2 = sut.processCheckout(items: items, total: total)
-        async let request3 = sut.processCheckout(items: items, total: total)
+        async let request1 = checkoutRepo.processCheckout(items: items, total: total)
+        async let request2 = checkoutRepo.processCheckout(items: items, total: total)
+        async let request3 = checkoutRepo.processCheckout(items: items, total: total)
         
         let results = try await [request1, request2, request3]
         
         // Then
         XCTAssertEqual(results.count, 3, "Should complete all 3 requests")
         XCTAssertTrue(results.allSatisfy { $0.success }, "All requests should succeed")
-        XCTAssertEqual(sut.processCheckoutCallCount, 3, "Should process 3 requests")
+        XCTAssertEqual(checkoutRepo.processCheckoutCallCount, 3, "Should process 3 requests")
     }
     
     // MARK: - Reset Tests
@@ -241,15 +241,15 @@ final class CheckoutRepositoryTests: XCTestCase {
         // Given
         let items = [CartItem.testCartItem1]
         let total = 10.0
-        _ = try await sut.processCheckout(items: items, total: total)
+        _ = try await checkoutRepo.processCheckout(items: items, total: total)
         
         // When
-        sut.reset()
+        checkoutRepo.reset()
         
         // Then
-        XCTAssertEqual(sut.processCheckoutCallCount, 0, "Call count should be reset")
-        XCTAssertNil(sut.lastProcessedItems, "Last processed items should be nil")
-        XCTAssertNil(sut.lastProcessedTotal, "Last processed total should be nil")
-        XCTAssertFalse(sut.shouldThrowError, "shouldThrowError should be reset to false")
+        XCTAssertEqual(checkoutRepo.processCheckoutCallCount, 0, "Call count should be reset")
+        XCTAssertNil(checkoutRepo.lastProcessedItems, "Last processed items should be nil")
+        XCTAssertNil(checkoutRepo.lastProcessedTotal, "Last processed total should be nil")
+        XCTAssertFalse(checkoutRepo.shouldThrowError, "shouldThrowError should be reset to false")
     }
 }
