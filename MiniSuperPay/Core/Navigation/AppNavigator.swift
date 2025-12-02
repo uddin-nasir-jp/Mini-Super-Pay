@@ -29,17 +29,16 @@ final class AppNavigator {
         navPath = NavigationPath()
     }
     
-    /// Present/Show sheet/modal view
+    // MARK: - Modal Presentation (Not used in this assignment but these can be handle by this AppNavigator for future enhancements)
+
     func showSheet(_ route: AppRoute) {
         presentedSheet = route
     }
     
-    /// Present/Show full screen sheet/modal view
     func showFullScreen(_ route: AppRoute) {
         presentedFullScreenCover = route
     }
     
-    /// Dismiss sheet/modal view
     func closeModal() {
         presentedSheet = nil
         presentedFullScreenCover = nil
