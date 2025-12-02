@@ -18,8 +18,8 @@ protocol NetworkServiceProtocol {
 
 final class NetworkService: NetworkServiceProtocol {
     func fetchProducts() async throws -> [Product] {
-        // Set 1 second network delay
-        try await Task.sleep(nanoseconds: 1_000_000_000)
+        // Simulate realistic network delay (1-3 seconds)
+        try await Task.sleep(nanoseconds: AppConstants.randomNetworkDelay)
         
         // Find url for products json data
         guard let url = Bundle.main.url(forResource: "products", withExtension: "json") else {
@@ -42,9 +42,8 @@ final class NetworkService: NetworkServiceProtocol {
     
     /// Method for Checkout operation
     func processCheckout(items: [CartItem], total: Double) async throws -> CheckoutResponse {
-        // Generate a random artificial network delay between 1–3 seconds
-        let delay = UInt64.random(in: 1...3) * 1_000_000_000
-        try await Task.sleep(nanoseconds: delay)
+        // Simulate realistic payment processing delay (1-3 seconds)
+        try await Task.sleep(nanoseconds: AppConstants.randomNetworkDelay)
         
         // 75% chance of success (1 out of 4 values triggers failure)
         let shouldSucceed = Int.random(in: 1...4) != 1
@@ -59,27 +58,5 @@ final class NetworkService: NetworkServiceProtocol {
             message: "Payment processed successfully",
             timestamp: Date()
         )
-    }
-}
-
-// MARK: - Mock service used for unit tests and SwiftUI previews/views.
-
-final class MockNetworkService: NetworkServiceProtocol {
-    var shouldFail = false
-    var mockProducts: [Product] = Product.mockProducts
-    var mockCheckoutResponse: CheckoutResponse = .mockSuccess
-    
-    func fetchProducts() async throws -> [Product] {
-        if shouldFail {
-            throw NetworkError.serverError
-        }
-        return mockProducts
-    }
-    
-    func processCheckout(items: [CartItem], total: Double) async throws -> CheckoutResponse {
-        if shouldFail {
-            throw NetworkError.checkoutFailed
-        }
-        return mockCheckoutResponse
     }
 }

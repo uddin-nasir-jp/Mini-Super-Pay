@@ -62,35 +62,3 @@ final class CartStorageService: CartStorageProtocol {
         return userDefaults.data(forKey: PreferenceKeys.cart.rawValue) != nil
     }
 }
-
-// MARK: - Mock service used for unit tests and SwiftUI previews/views.
-
-final class MockCartStorageService: CartStorageProtocol {
-    var shouldFail = false
-    var mockCart: [CartItem] = []
-    
-    func saveCart(_ items: [CartItem]) throws {
-        if shouldFail {
-            throw StorageError.saveFailed
-        }
-        mockCart = items
-    }
-    
-    func loadCart() throws -> [CartItem] {
-        if shouldFail {
-            throw StorageError.loadFailed
-        }
-        return mockCart
-    }
-    
-    func clearCart() throws {
-        if shouldFail {
-            throw StorageError.saveFailed
-        }
-        mockCart = []
-    }
-    
-    func cartExists() -> Bool {
-        return !mockCart.isEmpty
-    }
-}

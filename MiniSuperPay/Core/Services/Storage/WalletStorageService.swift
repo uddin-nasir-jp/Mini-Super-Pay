@@ -65,35 +65,3 @@ final class WalletStorageService: WalletStorageProtocol {
         return userDefaults.data(forKey: PreferenceKeys.wallet.rawValue) != nil
     }
 }
-
-// MARK: - Mock service used for unit tests and SwiftUI previews/views.
-
-final class MockWalletStorageService: WalletStorageProtocol {
-    var shouldFail = false
-    var mockWallet = Wallet(balance: PreferenceKeys.defaultWalletBalance)
-    
-    func saveWallet(_ wallet: Wallet) throws {
-        if shouldFail {
-            throw StorageError.saveFailed
-        }
-        mockWallet = wallet
-    }
-    
-    func loadWallet() throws -> Wallet {
-        if shouldFail {
-            throw StorageError.loadFailed
-        }
-        return mockWallet
-    }
-    
-    func clearWallet() throws {
-        if shouldFail {
-            throw StorageError.saveFailed
-        }
-        mockWallet = Wallet(balance: PreferenceKeys.defaultWalletBalance)
-    }
-    
-    func walletExists() -> Bool {
-        return true
-    }
-}

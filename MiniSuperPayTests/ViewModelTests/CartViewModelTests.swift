@@ -13,7 +13,7 @@ final class CartViewModelTests: XCTestCase {
     var cartViewModel: CartViewModel!
     var mockRepository: MockCartRepository!
     
-    // MARK: - Test Lifecycle
+    // MARK: - Setup & Teardown
     override func setUp() {
         super.setUp()
         mockRepository = MockCartRepository()

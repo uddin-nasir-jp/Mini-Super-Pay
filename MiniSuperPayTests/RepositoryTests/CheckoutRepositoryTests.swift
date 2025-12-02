@@ -12,7 +12,7 @@ final class CheckoutRepositoryTests: XCTestCase {
     // MARK: - PROPERTIES
     var checkoutRepo: MockCheckoutRepository!
     
-    // MARK: - Test Lifecycle
+    // MARK: - Setup & Teardown
     override func setUp() {
         super.setUp()
         checkoutRepo = MockCheckoutRepository()

@@ -110,5 +110,6 @@ struct CartView: View {
         CartView()
             .environment(AppNavigator())
             .environment(CartViewModel())
+            .environment(ToastManager())
     }
 }

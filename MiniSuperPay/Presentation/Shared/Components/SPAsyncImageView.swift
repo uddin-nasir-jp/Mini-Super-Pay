@@ -75,7 +75,7 @@ struct SPAsyncImageView: View {
                     .font(.system(size: 30))
                     .foregroundColor(.gray)
                 SPTextView(
-                    text: "Image unavailable",
+                    text: "Error",
                     size: DesignConstants.smFont,
                     textColor: .textColorLight
                 )
