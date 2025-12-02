@@ -119,5 +119,6 @@ struct ProductListView: View {
         ProductListView()
             .environment(AppNavigator())
             .environment(CartViewModel())
+            .environment(ToastManager())
     }
 }

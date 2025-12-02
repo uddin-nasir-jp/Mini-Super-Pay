@@ -12,25 +12,10 @@ final class MockCheckoutRepository: CheckoutRepositoryProtocol {
     // MARK: - Properties
     var shouldThrowError = false
     var errorToThrow: Error = CheckoutError.insufficientFunds
-    var simulatedDelay: UInt64 = 0
     var mockResponse: CheckoutResponse?
-    
-    // MARK: - Method Call Tracking
-    private(set) var processCheckoutCallCount = 0
-    private(set) var validateCheckoutCallCount = 0
-    private(set) var lastProcessedItems: [CartItem]?
-    private(set) var lastProcessedTotal: Double?
     
     // MARK: - CheckoutRepositoryProtocol
     func processCheckout(items: [CartItem], total: Double) async throws -> CheckoutResponse {
-        processCheckoutCallCount += 1
-        lastProcessedItems = items
-        lastProcessedTotal = total
-        
-        if simulatedDelay > 0 {
-            try await Task.sleep(nanoseconds: simulatedDelay)
-        }
-        
         if shouldThrowError {
             throw errorToThrow
         }
@@ -49,8 +34,6 @@ final class MockCheckoutRepository: CheckoutRepositoryProtocol {
     }
     
     func validateCheckout(items: [CartItem], walletBalance: Double) throws {
-        validateCheckoutCallCount += 1
-        
         if shouldThrowError {
             throw errorToThrow
         }
@@ -63,16 +46,5 @@ final class MockCheckoutRepository: CheckoutRepositoryProtocol {
         guard walletBalance >= total else {
             throw CheckoutError.insufficientFunds
         }
-    }
-    
-    // MARK: - Helper Methods
-    func reset() {
-        shouldThrowError = false
-        simulatedDelay = 0
-        mockResponse = nil
-        processCheckoutCallCount = 0
-        validateCheckoutCallCount = 0
-        lastProcessedItems = nil
-        lastProcessedTotal = nil
     }
 }

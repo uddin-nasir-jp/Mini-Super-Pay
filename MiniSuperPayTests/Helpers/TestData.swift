@@ -1,5 +1,5 @@
 //
-//  Product+TestHelpers.swift
+//  TestData.swift
 //  MiniSuperPayTests
 //
 //  Created by Nasir Uddin on 01/12/25.
@@ -7,6 +7,8 @@
 
 import Foundation
 @testable import MiniSuperPay
+
+// MARK: - Product Fixtures
 
 extension Product {
     static var testProduct1: Product {
@@ -41,7 +43,24 @@ extension Product {
             category: "Clothing"
         )
     }
+    
+    static var expensiveProduct: Product {
+        Product(
+            id: "test-expensive",
+            name: "Expensive Product",
+            price: 150.0,
+            description: "High-priced test product",
+            imageURL: nil,
+            category: "Luxury"
+        )
+    }
+    
+    static var testProducts: [Product] {
+        [testProduct1, testProduct2, testProduct3]
+    }
 }
+
+// MARK: - CartItem Fixtures
 
 extension CartItem {
     static var testCartItem1: CartItem {
@@ -67,7 +86,21 @@ extension CartItem {
             quantity: 3
         )
     }
+    
+    static var testCartItemMaxQuantity: CartItem {
+        CartItem(
+            id: "cart-max",
+            product: .testProduct1,
+            quantity: AppConstants.maximumCartQuantity
+        )
+    }
+    
+    static var testCartItems: [CartItem] {
+        [testCartItem1, testCartItem2, testCartItem3]
+    }
 }
+
+// MARK: - Wallet Fixtures
 
 extension Wallet {
     static var testWalletWithSufficientFunds: Wallet {
@@ -77,7 +110,17 @@ extension Wallet {
     static var testWalletWithInsufficientFunds: Wallet {
         Wallet(balance: 10.0)
     }
+    
+    static var testWalletEmpty: Wallet {
+        Wallet(balance: 0.0)
+    }
+    
+    static var testWalletDefault: Wallet {
+        Wallet(balance: AppConstants.defaultWalletBalance)
+    }
 }
+
+// MARK: - CheckoutResponse Fixtures
 
 extension CheckoutResponse {
     static var testSuccessResponse: CheckoutResponse {
