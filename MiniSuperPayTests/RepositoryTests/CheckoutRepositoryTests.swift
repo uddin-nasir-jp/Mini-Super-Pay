@@ -31,11 +31,21 @@ final class CheckoutRepositoryTests: XCTestCase {
         repository.mockResponse = CheckoutResponse.testSuccessResponse
         
         let response = try await repository.processCheckout(items: items, total: 10.0)
-        let isSuccess = response.success
-        let transactionId = response.transactionId
+        let isSuccess = await response.success
+        let transactionId = await response.transactionId
         
         XCTAssertTrue(isSuccess)
         XCTAssertNotNil(transactionId)
+    }
+    
+    func test_processCheckout_withAPIFailure_shouldReturnFailureResponse() async throws {
+        let items = [CartItem.testCartItem1]
+        repository.mockResponse = CheckoutResponse.testFailureResponse
+        
+        let response = try await repository.processCheckout(items: items, total: 10.0)
+        
+        XCTAssertFalse(response.success)
+        XCTAssertNil(response.transactionId)
     }
     
     func test_processCheckout_withInsufficientFunds_shouldThrowError() async {
