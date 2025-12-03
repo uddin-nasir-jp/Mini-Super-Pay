@@ -58,7 +58,7 @@ struct SPErrorView: View {
 }
 
 #Preview {
-    SPErrorView(error: NetworkError.serverError) {
+    SPErrorView(error: NetworkError.unknownError) {
         print("Retry tapped")
     }
 }

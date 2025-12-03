@@ -1,52 +1,36 @@
-//
-//  NetworkError.swift
-//  MiniSuperPay
-//
-//  Created by Nasir Uddin on 28/11/25.
-//
-
 import Foundation
 
-// MARK: - Define Network Error Cases
-enum NetworkError: LocalizedError {
-    case fileNotFound
-    case invalidData
+enum NetworkError: Error {
+    case invalidURL
+    case networkError(Error)
+    case invalidResponse
+    case invalidStatusCode(statusCode: Int)
     case decodingError
-    case checkoutFailed
-    case serverError
-    case noInternetConnection
-    
-    // Define error messages
+    case unknownError
+
     var errorDescription: String? {
         switch self {
-        case .fileNotFound:
-            return "Products data file not found"
-        case .invalidData:
-            return "Invalid data received from server"
+        case .invalidURL:
+            return "The URL is invalid."
+        case .networkError(error: let error):
+            return "Network error \(error)."
+        case .invalidResponse:
+            return "Received an invalid response from the server."
+        case .invalidStatusCode(statusCode: let statusCode):
+            return "Invalid status code: \(statusCode)."
         case .decodingError:
-            return "Failed to decode response"
-        case .checkoutFailed:
-            return "Payment processing failed. Please try again."
-        case .serverError:
-            return "Server error occurred. Please try again later."
-        case .noInternetConnection:
-            return "No internet connection. Please check your network."
+            return "Failed to decode the data."
+        case .unknownError:
+            return "An unknown error occurred."
         }
     }
-    
-    // define suggestions on error cases
-    var recoverySuggestion: String? {
-        switch self {
-        case .fileNotFound:
-            return "Please contact support"
-        case .invalidData, .decodingError:
-            return "Please try again or contact support"
-        case .checkoutFailed:
-            return "Please verify your payment details and try again"
-        case .serverError:
-            return "Please try again in a few moments"
-        case .noInternetConnection:
-            return "Connect to Wi-Fi or cellular data"
-        }
-    }
+}
+
+extension NetworkError {
+    static let mockInvalidURL: NetworkError = .invalidURL
+    static let mockNetworkError: NetworkError = .networkError(NSError(domain: "TestError", code: -1009))
+    static let mockInvalidResponse: NetworkError = .invalidResponse
+    static let mockInvalidStatusCode: NetworkError = .invalidStatusCode(statusCode: 404)
+    static let mockDecodingError: NetworkError = .decodingError
+    static let mockUnknownError: NetworkError = .unknownError
 }

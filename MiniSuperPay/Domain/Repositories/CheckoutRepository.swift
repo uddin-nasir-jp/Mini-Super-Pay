@@ -38,7 +38,7 @@ final class CheckoutRepository: CheckoutRepositoryProtocol {
     private let cartRepository: CartRepositoryProtocol
     
     init(
-        networkService: NetworkServiceProtocol = NetworkService(),
+        networkService: NetworkServiceProtocol = NetworkServiceManager(),
         walletStorage: WalletStorageProtocol = WalletStorageService.shared,
         cartRepository: CartRepositoryProtocol
     ) {
@@ -70,15 +70,15 @@ final class CheckoutRepository: CheckoutRepositoryProtocol {
             throw CheckoutError.insufficientFunds
         }
         
-        let response = try await networkService.processCheckout(items: items, total: total)
+        // Call API for checkout processing
+        let endpoint = CheckoutEndpoint.create(cartItems: items)
+        let response = try await networkService.performRequestAsync(endpoint, responseType: CheckoutResponse.self)
         
         if response.success {
             guard wallet.deductBalance(total) else {
                 throw CheckoutError.insufficientFunds
             }
             try walletStorage.saveWallet(wallet)
-            
-            //try cartRepository.clearCart()
         }
         
         return response
@@ -109,7 +109,7 @@ final class MockCheckoutRepository: CheckoutRepositoryProtocol {
     
     func processCheckout(items: [CartItem], total: Double) async throws -> CheckoutResponse {
         if shouldFail {
-            throw NetworkError.checkoutFailed
+            throw CheckoutError.processingFailed
         }
         
         return mockResponse

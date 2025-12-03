@@ -1,14 +1,57 @@
 import Combine
 import Foundation
 
+#warning("Implement network checking support before each request")
+
+// MARK: - Common Network Service Manager
 final class NetworkServiceManager: NetworkServiceProtocol {
+    // MARK: - PROPERTIES
     private let session: URLSession
     
     init(session: URLSession = .shared) {
         self.session = session
     }
     
-    // MARK: - Request for data
+    // MARK: - Async/Await Request
+    
+    func performRequestAsync<T: Decodable>(_ endpoint: APIEndpoint, responseType: T.Type) async throws -> T {
+        guard let request = createURLRequest(from: endpoint) else {
+            throw NetworkError.invalidURL
+        }
+        
+        do {
+            let (data, response) = try await session.data(for: request)
+            
+            // Validate response
+            guard let httpResponse = response as? HTTPURLResponse else {
+                throw NetworkError.invalidResponse
+            }
+            
+            // Check status code
+            guard (200...299).contains(httpResponse.statusCode) else {
+                throw NetworkError.invalidStatusCode(statusCode: httpResponse.statusCode)
+            }
+            
+            // Decode data
+            do {
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                let decodedData = try decoder.decode(T.self, from: data)
+                return decodedData
+            } catch {
+                print("Decoding error: \(error)")
+                throw NetworkError.decodingError
+            }
+            
+        } catch let error as NetworkError {
+            throw error
+        } catch {
+            throw NetworkError.networkError(error)
+        }
+    }
+    
+    // MARK: - Combine Request (Legacy Support)
+    
     func performRequest<T: Decodable>(_ endpoint: APIEndpoint, responseType: T.Type) -> AnyPublisher<T, NetworkError> {
         guard let request = createURLRequest(from: endpoint) else {
             return Fail(error: NetworkError.invalidURL)
@@ -74,9 +117,16 @@ final class NetworkServiceManager: NetworkServiceProtocol {
         guard let url = components.url else { return nil }
         var request = URLRequest(url: url)
         request.httpMethod = endpoint.method.rawValue
-        request.addValue("Bearer " + APIConstants.ACCESS_TOKEN_2, forHTTPHeaderField: "Authorization")
-        request.allHTTPHeaderFields = endpoint.headers
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
+        // Add custom headers if provided
+        if let headers = endpoint.headers {
+            for (key, value) in headers {
+                request.setValue(value, forHTTPHeaderField: key)
+            }
+        }
+        
+        // Add body for POST/PUT requests
         if let body = endpoint.body {
             request.httpBody = try? JSONSerialization.data(withJSONObject: body)
         }

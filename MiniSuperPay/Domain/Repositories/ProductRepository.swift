@@ -15,13 +15,14 @@ final class ProductRepository: ProductRepositoryProtocol {
     private let networkService: NetworkServiceProtocol
     private var cachedProducts: [Product] = []
     
-    init(networkService: NetworkServiceProtocol = NetworkService()) {
+    init(networkService: NetworkServiceProtocol = NetworkServiceManager()) {
         self.networkService = networkService
     }
     
-    /// Get product list
+    /// Get product list from  API
     func fetchProducts() async throws -> [Product] {
-        let products = try await networkService.fetchProducts()
+        let endpoint = ProductsEndpoint.create()
+        let products = try await networkService.performRequestAsync(endpoint, responseType: [Product].self)
         cachedProducts = products
         return products
     }
@@ -29,23 +30,5 @@ final class ProductRepository: ProductRepositoryProtocol {
     /// Get product by id (single product)
     func getProduct(by id: String) -> Product? {
         return cachedProducts.first { $0.id == id }
-    }
-}
-
-// MARK: - Mock service used for unit tests and SwiftUI previews/views.
-
-final class MockProductRepository: ProductRepositoryProtocol {
-    var shouldFail = false
-    var mockProducts: [Product] = Product.mockProducts
-    
-    func fetchProducts() async throws -> [Product] {
-        if shouldFail {
-            throw NetworkError.serverError
-        }
-        return mockProducts
-    }
-    
-    func getProduct(by id: String) -> Product? {
-        return mockProducts.first { $0.id == id }
     }
 }
