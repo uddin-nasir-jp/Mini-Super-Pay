@@ -63,31 +63,6 @@ open MiniSuperPay.xcodeproj
 Press Command+R to build and run the application.
 No external dependencies or CocoaPods required.
 
-## Project Structure
-
-MiniSuperPay/
-├── Core/
-│   ├── Navigation/          # AppNavigator, AppRoute
-│   ├── Network/             # NetworkServiceManager, Endpoints/
-│   ├── Services/            # Storage, ToastManager
-│   └── Utilities/           # Extensions, Constants, Helpers
-├── Domain/
-│   ├── Models/              # Product, CartItem, Wallet, CheckoutResponse
-│   └── Repositories/        # ProductRepository, CheckoutRepository, Protocols/
-├── Presentation/
-│   ├── ProductList/         # List, ViewModel, Components/
-│   ├── ProductDetail/       # Detail, Components/
-│   ├── Cart/                # Cart, ViewModel, Components/
-│   ├── Checkout/            # Checkout, ViewModel, Components/
-│   └── Shared/              # Reusable Components/
-├── Resources/
-│   ├── Assets.xcassets      # Images, Colors
-│   └── Localization/        # en.lproj/
-└── MiniSuperPayTests/
-    ├── ViewModelTests/      # CartViewModelTests
-    ├── RepositoryTests/     # CheckoutRepositoryTests
-    ├── Mocks/               # Mock repositories and storage
-    └── Helpers/             # TestData fixtures
 
 ## Testing
 
